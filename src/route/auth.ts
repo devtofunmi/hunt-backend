@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
-import { getProfile, login, signup } from '../controller/auth.js'
+import {  login, signup } from '../controller/auth.js'
+import { getProfile } from '../controller/profile.js'
 
 const authRoutes = new Hono()
 
