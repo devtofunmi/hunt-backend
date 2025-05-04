@@ -88,6 +88,33 @@ export const login = async (c: Context) => {
   })
 }
 
+export const getProfile = async (c: Context) => {
+  const cookie = c.req.header('Cookie') || ''
+  const tokenMatch = cookie.match(/refreshToken=([^;]+)/)
+  const refreshToken = tokenMatch?.[1]
+
+  if (!refreshToken) {
+    return c.json({ error: 'Unauthorized: No token' }, 401)
+  }
+
+  try {
+    const payload = verifyRefreshToken(refreshToken) as { id: string }
+
+    const user = await prisma.user.findUnique({
+      where: { id: payload.id },
+      select: { id: true, username: true, email: true },
+    })
+
+    if (!user) {
+      return c.json({ error: 'User not found' }, 404)
+    }
+
+    return c.json({ user })
+  } catch (error) {
+    return c.json({ error: 'Invalid or expired token' }, 403)
+  }
+}
+
 export const refresh = async (c: Context) => {
   const cookie = c.req.header('Cookie') || ''
   const tokenMatch = cookie.match(/refreshToken=([^;]+)/)
