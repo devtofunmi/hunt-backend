@@ -2,6 +2,7 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import authRoutes from './route/auth.js'
+import profileRoutes from './route/profile.js'
 
 const app = new Hono()
 
@@ -25,6 +26,7 @@ app.use(
 )
 
 app.route('/auth', authRoutes)
+app.route('/profile', profileRoutes);
 
 serve({
   fetch: app.fetch,
