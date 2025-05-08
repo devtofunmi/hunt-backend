@@ -6,12 +6,9 @@ import profileRoutes from './route/profile.js'
 
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Jay!')
-})
-
-
+// Global CORS middleware (FIXED)
 app.use(
+  '*',
   cors({
     origin: (origin) => {
       const allowedOrigins = [
@@ -21,22 +18,29 @@ app.use(
       ]
       return allowedOrigins.includes(origin ?? '') ? origin : ''
     },
-    credentials: true
+    credentials: true,
+    allowHeaders: ['Content-Type'],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   })
 )
 
-app.route('/auth', authRoutes)
-app.route('/profile', profileRoutes);
-
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
+app.get('/', (c) => {
+  return c.text('Hello Jay!')
 })
 
+app.route('/auth', authRoutes)
+app.route('/profile', profileRoutes)
 
-
+serve(
+  {
+    fetch: app.fetch,
+    port: 3000,
+  },
+  (info) => {
+    console.log(`Server is running on http://localhost:${info.port}`)
+  }
+)
 
 export default app
+
 
