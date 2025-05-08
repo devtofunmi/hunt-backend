@@ -4,8 +4,6 @@ import bcrypt from 'bcrypt'
 import prisma from '../prisma/client.js'
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../utils/jwt.js'
 
-
-
 const signupSchema = z.object({
   email: z.string().email(),
   username: z.string().min(3),
@@ -37,30 +35,36 @@ export const signup = async (c: Context) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await prisma.user.create({
-    data: { email, username, password: hashedPassword },
-  });
+  try {
+    const user = await prisma.user.create({
+      data: { email, username, password: hashedPassword },
+    });
 
-  // Generate the refresh token
-  const refreshToken = generateRefreshToken({ id: user.id });
+    // Generate the refresh token
+    const refreshToken = generateRefreshToken({ id: user.id });
 
-  // Set the refresh token as a cookie
-  c.header(
-    'Set-Cookie',
-    `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${7 * 24 * 60 * 60}; ${
-      process.env.NODE_ENV === 'production' ? 'Secure; SameSite=None;' : ''
-    }`
-  );
+    // Set the refresh token as a cookie
+    const cookieOptions = process.env.NODE_ENV === 'production'
+      ? 'Secure; SameSite=None;'
+      : 'SameSite=Lax;';
+      
+    c.header(
+      'Set-Cookie',
+      `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${7 * 24 * 60 * 60}; ${cookieOptions}`
+    );
 
-  // Generate access token
-  const accessToken = generateAccessToken({ id: user.id });
+    // Generate access token
+    const accessToken = generateAccessToken({ id: user.id });
 
-  return c.json({
-    accessToken,
-    user: { id: user.id, email: user.email, username: user.username },
-  });
+    return c.json({
+      accessToken,
+      user: { id: user.id, email: user.email, username: user.username },
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return c.json({ error: 'Internal Server Error' }, 500);
+  }
 };
-
 
 export const login = async (c: Context) => {
   const body = await c.req.json();
@@ -72,55 +76,62 @@ export const login = async (c: Context) => {
 
   const { username, password } = parsed.data;
 
-  const user = await prisma.user.findUnique({
-    where: { username },
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
 
-  if (!user) return c.json({ error: 'Invalid credentials' }, 401);
+    if (!user) return c.json({ error: 'Invalid credentials' }, 401);
 
-  const isValid = await bcrypt.compare(password, user.password);
-  if (!isValid) return c.json({ error: 'Invalid credentials' }, 401);
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) return c.json({ error: 'Invalid credentials' }, 401);
 
-  // Generate the refresh token
-  const refreshToken = generateRefreshToken({ id: user.id });
+    // Generate the refresh token
+    const refreshToken = generateRefreshToken({ id: user.id });
 
-  // Set the refresh token as a cookie
-  c.header(
-    'Set-Cookie',
-    `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${7 * 24 * 60 * 60}; ${
-      process.env.NODE_ENV === 'production' ? 'Secure; SameSite=None;' : ''
-    }`
-  );
+    // Set the refresh token as a cookie
+    const cookieOptions = process.env.NODE_ENV === 'production'
+      ? 'Secure; SameSite=None;'
+      : 'SameSite=Lax;';
 
-  // Generate access token
-  const accessToken = generateAccessToken({ id: user.id });
+    c.header(
+      'Set-Cookie',
+      `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${7 * 24 * 60 * 60}; ${cookieOptions}`
+    );
 
-  return c.json({
-    accessToken,
-    user: { id: user.id, email: user.email, username: user.username },
-  });
+    // Generate access token
+    const accessToken = generateAccessToken({ id: user.id });
+
+    return c.json({
+      accessToken,
+      user: { id: user.id, email: user.email, username: user.username },
+    });
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    return c.json({ error: 'Internal Server Error' }, 500);
+  }
 };
 
-
-
 export const refresh = async (c: Context) => {
-  const cookie = c.req.header('Cookie') || ''
-  const tokenMatch = cookie.match(/refreshToken=([^;]+)/)
-  const refreshToken = tokenMatch?.[1]
+  const cookie = c.req.header('Cookie') || '';
+  const tokenMatch = cookie.match(/refreshToken=([^;]+)/);
+  const refreshToken = tokenMatch?.[1];
 
-  if (!refreshToken) return c.json({ error: 'No refresh token provided' }, 401)
+  if (!refreshToken) return c.json({ error: 'No refresh token provided' }, 401);
 
   try {
-    const payload = verifyRefreshToken(refreshToken) as { id: string }
-    const newAccessToken = generateAccessToken({ id: payload.id })
-    return c.json({ accessToken: newAccessToken })
-  } catch {
-    return c.json({ error: 'Invalid or expired refresh token' }, 403)
+    const payload = verifyRefreshToken(refreshToken) as { id: string };
+    const newAccessToken = generateAccessToken({ id: payload.id });
+    return c.json({ accessToken: newAccessToken });
+  } catch (error) {
+    console.error('Error verifying refresh token:', error);
+    return c.json({ error: 'Invalid or expired refresh token' }, 403);
   }
-}
+};
 
 export const logout = async (c: Context) => {
   // Expire the cookie
-  c.header('Set-Cookie', `refreshToken=; HttpOnly; Path=/; Max-Age=0`)
-  return c.json({ message: 'Logged out successfully' })
-}
+  c.header('Set-Cookie', 'refreshToken=; HttpOnly; Path=/; Max-Age=0');
+  return c.json({ message: 'Logged out successfully' });
+};
+
