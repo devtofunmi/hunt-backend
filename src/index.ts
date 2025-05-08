@@ -3,10 +3,13 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import authRoutes from './route/auth.js'
 import profileRoutes from './route/profile.js'
+import { config } from 'dotenv'
+
+config(); 
 
 const app = new Hono()
 
-// Global CORS middleware (FIXED)
+
 app.use(
   '*',
   cors({
@@ -24,9 +27,7 @@ app.use(
   })
 )
 
-app.get('/', (c) => {
-  return c.text('Hello Jay!')
-})
+app.get('/', (c) => c.text('Hello Jay!'))
 
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
@@ -42,5 +43,3 @@ serve(
 )
 
 export default app
-
-
