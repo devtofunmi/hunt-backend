@@ -1,33 +1,15 @@
 import type { Context } from 'hono';
-import { verifyRefreshToken, generateAccessToken } from '../utils/jwt.js';  // Assuming you have these utils
 import prisma from '../prisma/client.js';
+import { getUserId } from '../middleware/middleware.js';
 
 // Profile controller: Fetch the current user's profile
 export const getProfile = async (c: Context) => {
-  // Get the refreshToken from the cookies
-  const cookie = c.req.header('Cookie') || '';
-  const tokenMatch = cookie.match(/refreshToken=([^;]+)/);
-  const refreshToken = tokenMatch?.[1];
-
-  if (!refreshToken) {
-    return c.json({ error: 'No refresh token provided' }, 401);
-  }
+  const userId = getUserId(c); // Get the user ID from the context set by the middleware
 
   try {
-    // Verify the refresh token
-    const payload = verifyRefreshToken(refreshToken); // The payload should contain the user ID
-
-    // Generate a new access token using the payload data (user ID)
-    let accessToken: string;
-    if (typeof payload !== 'string' && payload.id) {
-      accessToken = generateAccessToken({ id: payload.id });
-    } else {
-      throw new Error('Invalid token payload');
-    }
-
-    // Fetch user data from the database using the ID from the payload
+    // Fetch user data from the database using the userId from the context
     const user = await prisma.user.findUnique({
-      where: { id: payload.id },
+      where: { id: userId },
       select: { id: true, email: true, username: true },
     });
 
@@ -35,26 +17,22 @@ export const getProfile = async (c: Context) => {
       return c.json({ error: 'User not found' }, 404);
     }
 
-    // Return the profile information with the new access token
-    return c.json({ user, accessToken });
+    return c.json({ user });
   } catch (error) {
-    console.error('Token verification failed:', error);
-    return c.json({ error: 'Invalid or expired refresh token' }, 403);
+    console.error('Error fetching profile:', error);
+    return c.json({ error: 'Failed to fetch profile' }, 500);
   }
 };
 
 // Profile controller: Update the current user's profile
 export const updateProfile = async (c: Context) => {
-  // Assuming user information is set in req.user by middleware
-  const userId = c.req.user?.id;
-
-  if (!userId) {
-    return c.json({ error: 'User not authenticated' }, 401);
-  }
+  // Use the middleware to get the authenticated user's ID
+  const userId = getUserId(c); // This retrieves the user ID from the context
 
   const { username, email } = await c.req.json();
 
   try {
+    // Update the user profile in the database
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: { username, email },
