@@ -16,7 +16,7 @@ app.use(
     origin: (origin) => {
       const allowedOrigins = [
         'http://localhost:3000',
-        'https://launchhunt.up.railway.app',
+        'https://hunt.up.railway.app',
         'https://launchhunt.netlify.app',
       ]
       return allowedOrigins.includes(origin ?? '') ? origin : ''
