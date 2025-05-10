@@ -5,23 +5,25 @@ import authRoutes from './route/auth.js'
 import profileRoutes from './route/profile.js'
 import { config } from 'dotenv'
 
-config(); 
+config();
 
 const app = new Hono()
 
 
+app.use(
+  '*',
+  cors({
+    origin: ['http://localhost:3000', 'https://hunt.up.railway.app', 'https://launchhunt.netlify.app'],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'], // critical!
+    credentials: true,
+  })
+);
 
-app.use('*', cors({
-  origin: ['http://localhost:3000', 'https://hunt.up.railway.app', 'https://launchhunt.netlify.app'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-}));
 
 
 
 app.get('/', (c) => c.text('Hello Jay!'))
-
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
 
@@ -34,5 +36,3 @@ serve(
     console.log(`Server is running on http://localhost:${info.port}`)
   }
 )
-
-export default app
