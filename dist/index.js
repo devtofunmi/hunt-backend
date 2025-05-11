@@ -7,17 +7,10 @@ import { config } from 'dotenv';
 config();
 const app = new Hono();
 app.use('*', cors({
-    origin: (origin) => {
-        const allowedOrigins = [
-            'http://localhost:3000',
-            'https://launchhunt.up.railway.app',
-            'https://launchhunt.netlify.app',
-        ];
-        return allowedOrigins.includes(origin ?? '') ? origin : '';
-    },
-    credentials: true,
-    allowHeaders: ['Content-Type'],
+    origin: ['http://localhost:3000', 'https://hunt.up.railway.app', 'https://launchhunt.netlify.app'],
+    allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
 }));
 app.get('/', (c) => c.text('Hello Jay!'));
 app.route('/auth', authRoutes);
@@ -28,4 +21,3 @@ serve({
 }, (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);
 });
-export default app;

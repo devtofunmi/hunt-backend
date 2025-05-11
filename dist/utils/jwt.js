@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify, errors } from "jose";
 const secretStr = process.env.JWT_SECRET;
-if (!secretStr || secretStr.length < 10) {
+if (!secretStr || secretStr.length < 20) {
     throw new Error("JWT_SECRET must be set and at least 20 characters long.");
 }
 const secret = new TextEncoder().encode(secretStr);
