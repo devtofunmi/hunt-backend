@@ -10,17 +10,14 @@ config();
 const app = new Hono()
 
 
-app.use(
-  '*',
-  cors({
-    origin: ['http://localhost:3000', 'https://hunt.up.railway.app', 'https://launchhunt.netlify.app'],
-    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'], // critical!
-    credentials: true,
-  })
-);
 
 
+app.use('*', cors({
+  origin: ['http://localhost:3000', 'https://hunt.up.railway.app', 'https://launchhunt.netlify.app'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
 
 
 app.get('/', (c) => c.text('Hello Jay!'))
