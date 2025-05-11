@@ -1,16 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/client"
 }
-
-
-
 
 datasource db {
   provider = "postgresql"
@@ -18,9 +9,9 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   
-  username  String   @unique
+  id        String          @id @default(uuid())
+  email     String
+  username  String          @unique
   password  String
   image     String?
   bio       String?
@@ -28,6 +19,48 @@ model User {
   github    String?
   linkedin  String?
   bluesky   String?
+  createdAt DateTime        @default(now())
+
+  // Relations
+  savedProducts SavedProduct[]
+  upvotes       Upvote[]
+}
+
+model Product {
+  id          String          @id @default(uuid())
+  name        String
+  description String
+  logo        String
+  tags        String[]
+  upvotes     Int             @default(0)
+  createdAt   DateTime        @default(now())
+
+  // Relations
+  saves       SavedProduct[]
+  upvoters    Upvote[]
+}
+
+model SavedProduct {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
   createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId]) // One save per user-product
+}
+
+model Upvote {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId]) // One upvote per user-product
 }
 
