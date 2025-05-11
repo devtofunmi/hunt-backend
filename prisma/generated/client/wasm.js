@@ -134,6 +134,30 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  logo: 'logo',
+  tags: 'tags',
+  upvotes: 'upvotes',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SavedProductScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UpvoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  productId: 'productId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -151,7 +175,10 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Product: 'Product',
+  SavedProduct: 'SavedProduct',
+  Upvote: 'Upvote'
 };
 
 /**
