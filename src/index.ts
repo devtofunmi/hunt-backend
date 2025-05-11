@@ -4,6 +4,7 @@ import { cors } from 'hono/cors'
 import authRoutes from './route/auth.js'
 import profileRoutes from './route/profile.js'
 import { config } from 'dotenv'
+import productRoutes from './route/product.js'
 
 config();
 
@@ -21,6 +22,7 @@ app.use('*', cors({
 
 
 app.get('/', (c) => c.text('Hello Jay!'))
+app.route('/', productRoutes);
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
 
