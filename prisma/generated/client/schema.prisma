@@ -27,13 +27,17 @@ model User {
 }
 
 model Product {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  logo        String
-  tags        String[]
-  upvotes     Int      @default(0)
-  createdAt   DateTime @default(now())
+  id               String   @id @default(uuid())
+  title            String
+  logo             String
+  shortDescription String
+  fullDescription  String
+  link             String
+  userId           String
+  githubUrl        String
+  tags             String[]
+  upvotes          Int      @default(0)
+  createdAt        DateTime @default(now())
 
   // Relations
   saves    SavedProduct[]

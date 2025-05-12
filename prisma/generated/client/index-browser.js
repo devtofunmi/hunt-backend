@@ -136,9 +136,13 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
+  title: 'title',
   logo: 'logo',
+  shortDescription: 'shortDescription',
+  fullDescription: 'fullDescription',
+  link: 'link',
+  userId: 'userId',
+  githubUrl: 'githubUrl',
   tags: 'tags',
   upvotes: 'upvotes',
   createdAt: 'createdAt'

@@ -2419,27 +2419,39 @@ export namespace Prisma {
 
   export type ProductMinAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
+    title: string | null
     logo: string | null
+    shortDescription: string | null
+    fullDescription: string | null
+    link: string | null
+    userId: string | null
+    githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
   }
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
+    title: string | null
     logo: string | null
+    shortDescription: string | null
+    fullDescription: string | null
+    link: string | null
+    userId: string | null
+    githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
   }
 
   export type ProductCountAggregateOutputType = {
     id: number
-    name: number
-    description: number
+    title: number
     logo: number
+    shortDescription: number
+    fullDescription: number
+    link: number
+    userId: number
+    githubUrl: number
     tags: number
     upvotes: number
     createdAt: number
@@ -2457,27 +2469,39 @@ export namespace Prisma {
 
   export type ProductMinAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
+    title?: true
     logo?: true
+    shortDescription?: true
+    fullDescription?: true
+    link?: true
+    userId?: true
+    githubUrl?: true
     upvotes?: true
     createdAt?: true
   }
 
   export type ProductMaxAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
+    title?: true
     logo?: true
+    shortDescription?: true
+    fullDescription?: true
+    link?: true
+    userId?: true
+    githubUrl?: true
     upvotes?: true
     createdAt?: true
   }
 
   export type ProductCountAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
+    title?: true
     logo?: true
+    shortDescription?: true
+    fullDescription?: true
+    link?: true
+    userId?: true
+    githubUrl?: true
     tags?: true
     upvotes?: true
     createdAt?: true
@@ -2572,9 +2596,13 @@ export namespace Prisma {
 
   export type ProductGroupByOutputType = {
     id: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags: string[]
     upvotes: number
     createdAt: Date
@@ -2601,9 +2629,13 @@ export namespace Prisma {
 
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    description?: boolean
+    title?: boolean
     logo?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    link?: boolean
+    userId?: boolean
+    githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
@@ -2614,9 +2646,13 @@ export namespace Prisma {
 
   export type ProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    description?: boolean
+    title?: boolean
     logo?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    link?: boolean
+    userId?: boolean
+    githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
@@ -2624,9 +2660,13 @@ export namespace Prisma {
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    description?: boolean
+    title?: boolean
     logo?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    link?: boolean
+    userId?: boolean
+    githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
@@ -2634,15 +2674,19 @@ export namespace Prisma {
 
   export type ProductSelectScalar = {
     id?: boolean
-    name?: boolean
-    description?: boolean
+    title?: boolean
     logo?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    link?: boolean
+    userId?: boolean
+    githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "logo" | "tags" | "upvotes" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "userId" | "githubUrl" | "tags" | "upvotes" | "createdAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     saves?: boolean | Product$savesArgs<ExtArgs>
     upvoters?: boolean | Product$upvotersArgs<ExtArgs>
@@ -2659,9 +2703,13 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      description: string
+      title: string
       logo: string
+      shortDescription: string
+      fullDescription: string
+      link: string
+      userId: string
+      githubUrl: string
       tags: string[]
       upvotes: number
       createdAt: Date
@@ -3091,9 +3139,13 @@ export namespace Prisma {
    */
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
-    readonly name: FieldRef<"Product", 'String'>
-    readonly description: FieldRef<"Product", 'String'>
+    readonly title: FieldRef<"Product", 'String'>
     readonly logo: FieldRef<"Product", 'String'>
+    readonly shortDescription: FieldRef<"Product", 'String'>
+    readonly fullDescription: FieldRef<"Product", 'String'>
+    readonly link: FieldRef<"Product", 'String'>
+    readonly userId: FieldRef<"Product", 'String'>
+    readonly githubUrl: FieldRef<"Product", 'String'>
     readonly tags: FieldRef<"Product", 'String[]'>
     readonly upvotes: FieldRef<"Product", 'Int'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
@@ -5690,9 +5742,13 @@ export namespace Prisma {
 
   export const ProductScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    description: 'description',
+    title: 'title',
     logo: 'logo',
+    shortDescription: 'shortDescription',
+    fullDescription: 'fullDescription',
+    link: 'link',
+    userId: 'userId',
+    githubUrl: 'githubUrl',
     tags: 'tags',
     upvotes: 'upvotes',
     createdAt: 'createdAt'
@@ -5902,9 +5958,13 @@ export namespace Prisma {
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
-    name?: StringFilter<"Product"> | string
-    description?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     logo?: StringFilter<"Product"> | string
+    shortDescription?: StringFilter<"Product"> | string
+    fullDescription?: StringFilter<"Product"> | string
+    link?: StringFilter<"Product"> | string
+    userId?: StringFilter<"Product"> | string
+    githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
@@ -5914,9 +5974,13 @@ export namespace Prisma {
 
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     logo?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    link?: SortOrder
+    userId?: SortOrder
+    githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
@@ -5929,9 +5993,13 @@ export namespace Prisma {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    name?: StringFilter<"Product"> | string
-    description?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     logo?: StringFilter<"Product"> | string
+    shortDescription?: StringFilter<"Product"> | string
+    fullDescription?: StringFilter<"Product"> | string
+    link?: StringFilter<"Product"> | string
+    userId?: StringFilter<"Product"> | string
+    githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
@@ -5941,9 +6009,13 @@ export namespace Prisma {
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     logo?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    link?: SortOrder
+    userId?: SortOrder
+    githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
@@ -5959,9 +6031,13 @@ export namespace Prisma {
     OR?: ProductScalarWhereWithAggregatesInput[]
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
-    name?: StringWithAggregatesFilter<"Product"> | string
-    description?: StringWithAggregatesFilter<"Product"> | string
+    title?: StringWithAggregatesFilter<"Product"> | string
     logo?: StringWithAggregatesFilter<"Product"> | string
+    shortDescription?: StringWithAggregatesFilter<"Product"> | string
+    fullDescription?: StringWithAggregatesFilter<"Product"> | string
+    link?: StringWithAggregatesFilter<"Product"> | string
+    userId?: StringWithAggregatesFilter<"Product"> | string
+    githubUrl?: StringWithAggregatesFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntWithAggregatesFilter<"Product"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -6183,9 +6259,13 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -6195,9 +6275,13 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -6207,9 +6291,13 @@ export namespace Prisma {
 
   export type ProductUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6219,9 +6307,13 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6231,9 +6323,13 @@ export namespace Prisma {
 
   export type ProductCreateManyInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -6241,9 +6337,13 @@ export namespace Prisma {
 
   export type ProductUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6251,9 +6351,13 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6532,9 +6636,13 @@ export namespace Prisma {
 
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     logo?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    link?: SortOrder
+    userId?: SortOrder
+    githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
@@ -6546,18 +6654,26 @@ export namespace Prisma {
 
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     logo?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    link?: SortOrder
+    userId?: SortOrder
+    githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
+    title?: SortOrder
     logo?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    link?: SortOrder
+    userId?: SortOrder
+    githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
   }
@@ -7242,9 +7358,13 @@ export namespace Prisma {
 
   export type ProductCreateWithoutSavesInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -7253,9 +7373,13 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateWithoutSavesInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -7321,9 +7445,13 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutSavesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7332,9 +7460,13 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateWithoutSavesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7378,9 +7510,13 @@ export namespace Prisma {
 
   export type ProductCreateWithoutUpvotersInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -7389,9 +7525,13 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateWithoutUpvotersInput = {
     id?: string
-    name: string
-    description: string
+    title: string
     logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    userId: string
+    githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
@@ -7457,9 +7597,13 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutUpvotersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7468,9 +7612,13 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateWithoutUpvotersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
