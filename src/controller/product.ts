@@ -2,6 +2,43 @@ import type { Context } from 'hono';
 import prisma from '../prisma/client.js';
 import { getUserId } from '../middleware/middleware.js';
 
+export const createProduct = async (c: Context) => {
+  const userId = getUserId(c);
+  const body = await c.req.json();
+
+  const {
+    title,
+    logo,
+    shortDescription,
+    fullDescription,
+    link,
+    githubUrl,
+    tags,
+  } = body;
+
+  if (
+    !title || !logo || !shortDescription || !fullDescription ||
+    !link || !githubUrl || !tags || !Array.isArray(tags)
+  ) {
+    return c.json({ error: 'Missing or invalid fields' }, 400);
+  }
+
+  const product = await prisma.product.create({
+    data: {
+      userId, 
+      title,
+      logo,
+      shortDescription,
+      fullDescription,
+      link,
+      githubUrl,
+      tags,
+    },
+  });
+
+  return c.json(product, 201);
+};
+
 
 export const getAllProducts = async (c: Context) => {
   const products = await prisma.product.findMany();
