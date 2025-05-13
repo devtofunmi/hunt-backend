@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { createProduct, getAllProducts, getSavedProducts, getTopProducts, toggleSaveProduct, upvoteProduct } from '../controller/product.js';
+import { createProduct, getAllProducts, getSavedProducts, getTopProducts, getUserProducts, toggleSaveProduct, upvoteProduct } from '../controller/product.js';
 import { authMiddleware } from '../middleware/middleware.js';
 
 
@@ -15,5 +15,6 @@ productRoutes.get('/products/saved', getSavedProducts);
 productRoutes.post('/products/:id/save', toggleSaveProduct);
 productRoutes.post('/products/:id/upvote', upvoteProduct);
 productRoutes.post('/', createProduct);
+productRoutes.get('/products/me', getUserProducts);
 
 export default productRoutes;

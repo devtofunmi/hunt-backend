@@ -39,6 +39,20 @@ export const createProduct = async (c: Context) => {
   return c.json(product, 201);
 };
 
+export const getUserProducts = async (c: Context) => {
+  const userId = getUserId(c);
+
+  if (!userId) {
+    return c.json({ error: 'Unauthorized' }, 401);
+  }
+
+  const products = await prisma.product.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return c.json(products);
+};
 
 export const getAllProducts = async (c: Context) => {
   const products = await prisma.product.findMany();
