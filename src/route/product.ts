@@ -15,6 +15,6 @@ productRoutes.get('/products/saved', getSavedProducts);
 productRoutes.post('/products/:id/save', toggleSaveProduct);
 productRoutes.post('/products/:id/upvote', upvoteProduct);
 productRoutes.post('/', createProduct);
-productRoutes.get('/products/me', getUserProducts);
+productRoutes.get('/products/me', authMiddleware, getUserProducts);
 
 export default productRoutes;
