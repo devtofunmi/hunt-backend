@@ -125,3 +125,20 @@ export const upvoteProduct = async (c: Context) => {
   return c.json({ upvoted: true });
 };
 
+export const getUpvotedProducts = async (c: Context) => {
+  const userId = getUserId(c);
+
+  if (!userId) {
+    return c.json({ error: 'Unauthorized' }, 401);
+  }
+
+  const upvoted = await prisma.upvote.findMany({
+    where: { userId },
+    include: { product: true },
+  });
+
+  const products = upvoted.map((u) => u.product);
+  return c.json(products);
+};
+
+
