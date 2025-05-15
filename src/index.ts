@@ -22,7 +22,7 @@ app.use('*', cors({
 
 
 app.get('/', (c) => c.text('Hello Jay!'))
-app.route('/', productRoutes);
+app.route('/products', productRoutes);
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
 
