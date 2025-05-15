@@ -4,18 +4,17 @@ import { authMiddleware } from '../middleware/middleware.js';
 
 
 const productRoutes = new Hono();
-
-// Public routes
-productRoutes.get('/products', getAllProducts);
-productRoutes.get('/products/top', getTopProducts);
-
+//public routes
+productRoutes.get('/', getAllProducts); // GET /products
+productRoutes.get('/top', getTopProducts); // GET /products/top
 // Authenticated routes
-productRoutes.use('/products/*', authMiddleware);
-productRoutes.get('/products/saved', getSavedProducts);
-productRoutes.get('/products/upvoted', getUpvotedProducts);
-productRoutes.post('/products/:id/save', toggleSaveProduct);
-productRoutes.post('/products/:id/upvote', upvoteProduct);
-productRoutes.post('/', createProduct);
-productRoutes.get('/products/me', authMiddleware, getUserProducts);
+productRoutes.use('*', authMiddleware);
+productRoutes.get('/saved', getSavedProducts); // GET /products/saved
+productRoutes.get('/upvoted', getUpvotedProducts); // GET /products/upvoted
+productRoutes.post('/:id/save', toggleSaveProduct); // POST /products/:id/save
+productRoutes.post('/:id/upvote', upvoteProduct); // POST /products/:id/upvote
+productRoutes.post('/', createProduct); // POST /products
+productRoutes.get('/me', getUserProducts); // GET /products/me
+
 
 export default productRoutes;
