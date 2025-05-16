@@ -128,7 +128,7 @@ export const login = async (c: Context) => {
   }
 };
 
-// Refresh token handler
+// Refresh token handlerr
 export const refreshToken = async (c: Context) => {
   const cookie = c.req.header("cookie");
   const token = cookie?.split("; ").find((c) => c.startsWith("refreshToken="))?.split("=")[1];
