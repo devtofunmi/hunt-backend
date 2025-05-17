@@ -14,25 +14,40 @@ export const createProduct = async (c: Context) => {
     link,
     githubUrl,
     tags,
+    upvotes = 0,
+    user,
   } = body;
 
   if (
     !title || !logo || !shortDescription || !fullDescription ||
-    !link || !githubUrl || !tags || !Array.isArray(tags)
+    !link || !githubUrl || !tags || !Array.isArray(tags) || !user
   ) {
     return c.json({ error: 'Missing or invalid fields' }, 400);
   }
 
   const product = await prisma.product.create({
     data: {
-      userId, 
+      userId,
       title,
       logo,
       shortDescription,
       fullDescription,
       link,
       githubUrl,
+      upvotes,
       tags,
+      userName: user.name,
+      userImage: user.image,
+      userBio: user.bio,
+      socialLinks: {
+        create: user.socialLinks.map((link: { platform: string; url: string }) => ({
+          platform: link.platform,
+          url: link.url,
+        })),
+      },
+    },
+    include: {
+      socialLinks: true,
     },
   });
 
@@ -140,5 +155,3 @@ export const getUpvotedProducts = async (c: Context) => {
   const products = upvoted.map((u) => u.product);
   return c.json(products);
 };
-
-
