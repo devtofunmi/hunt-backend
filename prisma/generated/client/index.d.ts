@@ -33,6 +33,11 @@ export type SavedProduct = $Result.DefaultSelection<Prisma.$SavedProductPayload>
  * 
  */
 export type Upvote = $Result.DefaultSelection<Prisma.$UpvotePayload>
+/**
+ * Model SocialLink
+ * 
+ */
+export type SocialLink = $Result.DefaultSelection<Prisma.$SocialLinkPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -198,6 +203,16 @@ export class PrismaClient<
     * ```
     */
   get upvote(): Prisma.UpvoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.socialLink`: Exposes CRUD operations for the **SocialLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SocialLinks
+    * const socialLinks = await prisma.socialLink.findMany()
+    * ```
+    */
+  get socialLink(): Prisma.SocialLinkDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -641,7 +656,8 @@ export namespace Prisma {
     User: 'User',
     Product: 'Product',
     SavedProduct: 'SavedProduct',
-    Upvote: 'Upvote'
+    Upvote: 'Upvote',
+    SocialLink: 'SocialLink'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "product" | "savedProduct" | "upvote"
+      modelProps: "user" | "product" | "savedProduct" | "upvote" | "socialLink"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +976,80 @@ export namespace Prisma {
           }
         }
       }
+      SocialLink: {
+        payload: Prisma.$SocialLinkPayload<ExtArgs>
+        fields: Prisma.SocialLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SocialLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SocialLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.SocialLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SocialLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          findMany: {
+            args: Prisma.SocialLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>[]
+          }
+          create: {
+            args: Prisma.SocialLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          createMany: {
+            args: Prisma.SocialLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SocialLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.SocialLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          update: {
+            args: Prisma.SocialLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.SocialLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SocialLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SocialLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.SocialLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SocialLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.SocialLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSocialLink>
+          }
+          groupBy: {
+            args: Prisma.SocialLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SocialLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SocialLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<SocialLinkCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1048,6 +1138,7 @@ export namespace Prisma {
     product?: ProductOmit
     savedProduct?: SavedProductOmit
     upvote?: UpvoteOmit
+    socialLink?: SocialLinkOmit
   }
 
   /* Types for Logging */
@@ -1184,11 +1275,13 @@ export namespace Prisma {
   export type ProductCountOutputType = {
     saves: number
     upvoters: number
+    socialLinks: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     saves?: boolean | ProductCountOutputTypeCountSavesArgs
     upvoters?: boolean | ProductCountOutputTypeCountUpvotersArgs
+    socialLinks?: boolean | ProductCountOutputTypeCountSocialLinksArgs
   }
 
   // Custom InputTypes
@@ -1214,6 +1307,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountUpvotersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UpvoteWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountSocialLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocialLinkWhereInput
   }
 
 
@@ -2424,10 +2524,13 @@ export namespace Prisma {
     shortDescription: string | null
     fullDescription: string | null
     link: string | null
-    userId: string | null
     githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
+    userId: string | null
+    userName: string | null
+    userImage: string | null
+    userBio: string | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -2437,10 +2540,13 @@ export namespace Prisma {
     shortDescription: string | null
     fullDescription: string | null
     link: string | null
-    userId: string | null
     githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
+    userId: string | null
+    userName: string | null
+    userImage: string | null
+    userBio: string | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -2450,11 +2556,14 @@ export namespace Prisma {
     shortDescription: number
     fullDescription: number
     link: number
-    userId: number
     githubUrl: number
     tags: number
     upvotes: number
     createdAt: number
+    userId: number
+    userName: number
+    userImage: number
+    userBio: number
     _all: number
   }
 
@@ -2474,10 +2583,13 @@ export namespace Prisma {
     shortDescription?: true
     fullDescription?: true
     link?: true
-    userId?: true
     githubUrl?: true
     upvotes?: true
     createdAt?: true
+    userId?: true
+    userName?: true
+    userImage?: true
+    userBio?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -2487,10 +2599,13 @@ export namespace Prisma {
     shortDescription?: true
     fullDescription?: true
     link?: true
-    userId?: true
     githubUrl?: true
     upvotes?: true
     createdAt?: true
+    userId?: true
+    userName?: true
+    userImage?: true
+    userBio?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -2500,11 +2615,14 @@ export namespace Prisma {
     shortDescription?: true
     fullDescription?: true
     link?: true
-    userId?: true
     githubUrl?: true
     tags?: true
     upvotes?: true
     createdAt?: true
+    userId?: true
+    userName?: true
+    userImage?: true
+    userBio?: true
     _all?: true
   }
 
@@ -2601,11 +2719,14 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags: string[]
     upvotes: number
     createdAt: Date
+    userId: string
+    userName: string | null
+    userImage: string | null
+    userBio: string | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -2634,13 +2755,17 @@ export namespace Prisma {
     shortDescription?: boolean
     fullDescription?: boolean
     link?: boolean
-    userId?: boolean
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    userId?: boolean
+    userName?: boolean
+    userImage?: boolean
+    userBio?: boolean
     saves?: boolean | Product$savesArgs<ExtArgs>
     upvoters?: boolean | Product$upvotersArgs<ExtArgs>
+    socialLinks?: boolean | Product$socialLinksArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -2651,11 +2776,14 @@ export namespace Prisma {
     shortDescription?: boolean
     fullDescription?: boolean
     link?: boolean
-    userId?: boolean
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    userId?: boolean
+    userName?: boolean
+    userImage?: boolean
+    userBio?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2665,11 +2793,14 @@ export namespace Prisma {
     shortDescription?: boolean
     fullDescription?: boolean
     link?: boolean
-    userId?: boolean
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    userId?: boolean
+    userName?: boolean
+    userImage?: boolean
+    userBio?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -2679,17 +2810,21 @@ export namespace Prisma {
     shortDescription?: boolean
     fullDescription?: boolean
     link?: boolean
-    userId?: boolean
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    userId?: boolean
+    userName?: boolean
+    userImage?: boolean
+    userBio?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "userId" | "githubUrl" | "tags" | "upvotes" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "githubUrl" | "tags" | "upvotes" | "createdAt" | "userId" | "userName" | "userImage" | "userBio", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     saves?: boolean | Product$savesArgs<ExtArgs>
     upvoters?: boolean | Product$upvotersArgs<ExtArgs>
+    socialLinks?: boolean | Product$socialLinksArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2700,6 +2835,7 @@ export namespace Prisma {
     objects: {
       saves: Prisma.$SavedProductPayload<ExtArgs>[]
       upvoters: Prisma.$UpvotePayload<ExtArgs>[]
+      socialLinks: Prisma.$SocialLinkPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2708,11 +2844,14 @@ export namespace Prisma {
       shortDescription: string
       fullDescription: string
       link: string
-      userId: string
       githubUrl: string
       tags: string[]
       upvotes: number
       createdAt: Date
+      userId: string
+      userName: string | null
+      userImage: string | null
+      userBio: string | null
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -3109,6 +3248,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     saves<T extends Product$savesArgs<ExtArgs> = {}>(args?: Subset<T, Product$savesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     upvoters<T extends Product$upvotersArgs<ExtArgs> = {}>(args?: Subset<T, Product$upvotersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    socialLinks<T extends Product$socialLinksArgs<ExtArgs> = {}>(args?: Subset<T, Product$socialLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3144,11 +3284,14 @@ export namespace Prisma {
     readonly shortDescription: FieldRef<"Product", 'String'>
     readonly fullDescription: FieldRef<"Product", 'String'>
     readonly link: FieldRef<"Product", 'String'>
-    readonly userId: FieldRef<"Product", 'String'>
     readonly githubUrl: FieldRef<"Product", 'String'>
     readonly tags: FieldRef<"Product", 'String[]'>
     readonly upvotes: FieldRef<"Product", 'Int'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
+    readonly userId: FieldRef<"Product", 'String'>
+    readonly userName: FieldRef<"Product", 'String'>
+    readonly userImage: FieldRef<"Product", 'String'>
+    readonly userBio: FieldRef<"Product", 'String'>
   }
     
 
@@ -3582,6 +3725,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UpvoteScalarFieldEnum | UpvoteScalarFieldEnum[]
+  }
+
+  /**
+   * Product.socialLinks
+   */
+  export type Product$socialLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    where?: SocialLinkWhereInput
+    orderBy?: SocialLinkOrderByWithRelationInput | SocialLinkOrderByWithRelationInput[]
+    cursor?: SocialLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SocialLinkScalarFieldEnum | SocialLinkScalarFieldEnum[]
   }
 
   /**
@@ -5710,6 +5877,1051 @@ export namespace Prisma {
 
 
   /**
+   * Model SocialLink
+   */
+
+  export type AggregateSocialLink = {
+    _count: SocialLinkCountAggregateOutputType | null
+    _min: SocialLinkMinAggregateOutputType | null
+    _max: SocialLinkMaxAggregateOutputType | null
+  }
+
+  export type SocialLinkMinAggregateOutputType = {
+    id: string | null
+    platform: string | null
+    url: string | null
+    productId: string | null
+  }
+
+  export type SocialLinkMaxAggregateOutputType = {
+    id: string | null
+    platform: string | null
+    url: string | null
+    productId: string | null
+  }
+
+  export type SocialLinkCountAggregateOutputType = {
+    id: number
+    platform: number
+    url: number
+    productId: number
+    _all: number
+  }
+
+
+  export type SocialLinkMinAggregateInputType = {
+    id?: true
+    platform?: true
+    url?: true
+    productId?: true
+  }
+
+  export type SocialLinkMaxAggregateInputType = {
+    id?: true
+    platform?: true
+    url?: true
+    productId?: true
+  }
+
+  export type SocialLinkCountAggregateInputType = {
+    id?: true
+    platform?: true
+    url?: true
+    productId?: true
+    _all?: true
+  }
+
+  export type SocialLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocialLink to aggregate.
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialLinks to fetch.
+     */
+    orderBy?: SocialLinkOrderByWithRelationInput | SocialLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SocialLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SocialLinks
+    **/
+    _count?: true | SocialLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SocialLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SocialLinkMaxAggregateInputType
+  }
+
+  export type GetSocialLinkAggregateType<T extends SocialLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateSocialLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSocialLink[P]>
+      : GetScalarType<T[P], AggregateSocialLink[P]>
+  }
+
+
+
+
+  export type SocialLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SocialLinkWhereInput
+    orderBy?: SocialLinkOrderByWithAggregationInput | SocialLinkOrderByWithAggregationInput[]
+    by: SocialLinkScalarFieldEnum[] | SocialLinkScalarFieldEnum
+    having?: SocialLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SocialLinkCountAggregateInputType | true
+    _min?: SocialLinkMinAggregateInputType
+    _max?: SocialLinkMaxAggregateInputType
+  }
+
+  export type SocialLinkGroupByOutputType = {
+    id: string
+    platform: string
+    url: string
+    productId: string
+    _count: SocialLinkCountAggregateOutputType | null
+    _min: SocialLinkMinAggregateOutputType | null
+    _max: SocialLinkMaxAggregateOutputType | null
+  }
+
+  type GetSocialLinkGroupByPayload<T extends SocialLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SocialLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SocialLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SocialLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], SocialLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SocialLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platform?: boolean
+    url?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["socialLink"]>
+
+  export type SocialLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platform?: boolean
+    url?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["socialLink"]>
+
+  export type SocialLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platform?: boolean
+    url?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["socialLink"]>
+
+  export type SocialLinkSelectScalar = {
+    id?: boolean
+    platform?: boolean
+    url?: boolean
+    productId?: boolean
+  }
+
+  export type SocialLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "platform" | "url" | "productId", ExtArgs["result"]["socialLink"]>
+  export type SocialLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type SocialLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type SocialLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $SocialLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SocialLink"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      platform: string
+      url: string
+      productId: string
+    }, ExtArgs["result"]["socialLink"]>
+    composites: {}
+  }
+
+  type SocialLinkGetPayload<S extends boolean | null | undefined | SocialLinkDefaultArgs> = $Result.GetResult<Prisma.$SocialLinkPayload, S>
+
+  type SocialLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SocialLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SocialLinkCountAggregateInputType | true
+    }
+
+  export interface SocialLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SocialLink'], meta: { name: 'SocialLink' } }
+    /**
+     * Find zero or one SocialLink that matches the filter.
+     * @param {SocialLinkFindUniqueArgs} args - Arguments to find a SocialLink
+     * @example
+     * // Get one SocialLink
+     * const socialLink = await prisma.socialLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SocialLinkFindUniqueArgs>(args: SelectSubset<T, SocialLinkFindUniqueArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SocialLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SocialLinkFindUniqueOrThrowArgs} args - Arguments to find a SocialLink
+     * @example
+     * // Get one SocialLink
+     * const socialLink = await prisma.socialLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SocialLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, SocialLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SocialLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkFindFirstArgs} args - Arguments to find a SocialLink
+     * @example
+     * // Get one SocialLink
+     * const socialLink = await prisma.socialLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SocialLinkFindFirstArgs>(args?: SelectSubset<T, SocialLinkFindFirstArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SocialLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkFindFirstOrThrowArgs} args - Arguments to find a SocialLink
+     * @example
+     * // Get one SocialLink
+     * const socialLink = await prisma.socialLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SocialLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, SocialLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SocialLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SocialLinks
+     * const socialLinks = await prisma.socialLink.findMany()
+     * 
+     * // Get first 10 SocialLinks
+     * const socialLinks = await prisma.socialLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const socialLinkWithIdOnly = await prisma.socialLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SocialLinkFindManyArgs>(args?: SelectSubset<T, SocialLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SocialLink.
+     * @param {SocialLinkCreateArgs} args - Arguments to create a SocialLink.
+     * @example
+     * // Create one SocialLink
+     * const SocialLink = await prisma.socialLink.create({
+     *   data: {
+     *     // ... data to create a SocialLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends SocialLinkCreateArgs>(args: SelectSubset<T, SocialLinkCreateArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SocialLinks.
+     * @param {SocialLinkCreateManyArgs} args - Arguments to create many SocialLinks.
+     * @example
+     * // Create many SocialLinks
+     * const socialLink = await prisma.socialLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SocialLinkCreateManyArgs>(args?: SelectSubset<T, SocialLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SocialLinks and returns the data saved in the database.
+     * @param {SocialLinkCreateManyAndReturnArgs} args - Arguments to create many SocialLinks.
+     * @example
+     * // Create many SocialLinks
+     * const socialLink = await prisma.socialLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SocialLinks and only return the `id`
+     * const socialLinkWithIdOnly = await prisma.socialLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SocialLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, SocialLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SocialLink.
+     * @param {SocialLinkDeleteArgs} args - Arguments to delete one SocialLink.
+     * @example
+     * // Delete one SocialLink
+     * const SocialLink = await prisma.socialLink.delete({
+     *   where: {
+     *     // ... filter to delete one SocialLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SocialLinkDeleteArgs>(args: SelectSubset<T, SocialLinkDeleteArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SocialLink.
+     * @param {SocialLinkUpdateArgs} args - Arguments to update one SocialLink.
+     * @example
+     * // Update one SocialLink
+     * const socialLink = await prisma.socialLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SocialLinkUpdateArgs>(args: SelectSubset<T, SocialLinkUpdateArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SocialLinks.
+     * @param {SocialLinkDeleteManyArgs} args - Arguments to filter SocialLinks to delete.
+     * @example
+     * // Delete a few SocialLinks
+     * const { count } = await prisma.socialLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SocialLinkDeleteManyArgs>(args?: SelectSubset<T, SocialLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SocialLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SocialLinks
+     * const socialLink = await prisma.socialLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SocialLinkUpdateManyArgs>(args: SelectSubset<T, SocialLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SocialLinks and returns the data updated in the database.
+     * @param {SocialLinkUpdateManyAndReturnArgs} args - Arguments to update many SocialLinks.
+     * @example
+     * // Update many SocialLinks
+     * const socialLink = await prisma.socialLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SocialLinks and only return the `id`
+     * const socialLinkWithIdOnly = await prisma.socialLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SocialLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, SocialLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SocialLink.
+     * @param {SocialLinkUpsertArgs} args - Arguments to update or create a SocialLink.
+     * @example
+     * // Update or create a SocialLink
+     * const socialLink = await prisma.socialLink.upsert({
+     *   create: {
+     *     // ... data to create a SocialLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SocialLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SocialLinkUpsertArgs>(args: SelectSubset<T, SocialLinkUpsertArgs<ExtArgs>>): Prisma__SocialLinkClient<$Result.GetResult<Prisma.$SocialLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SocialLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkCountArgs} args - Arguments to filter SocialLinks to count.
+     * @example
+     * // Count the number of SocialLinks
+     * const count = await prisma.socialLink.count({
+     *   where: {
+     *     // ... the filter for the SocialLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends SocialLinkCountArgs>(
+      args?: Subset<T, SocialLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SocialLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SocialLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SocialLinkAggregateArgs>(args: Subset<T, SocialLinkAggregateArgs>): Prisma.PrismaPromise<GetSocialLinkAggregateType<T>>
+
+    /**
+     * Group by SocialLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SocialLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SocialLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SocialLinkGroupByArgs['orderBy'] }
+        : { orderBy?: SocialLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SocialLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSocialLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SocialLink model
+   */
+  readonly fields: SocialLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SocialLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SocialLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SocialLink model
+   */
+  interface SocialLinkFieldRefs {
+    readonly id: FieldRef<"SocialLink", 'String'>
+    readonly platform: FieldRef<"SocialLink", 'String'>
+    readonly url: FieldRef<"SocialLink", 'String'>
+    readonly productId: FieldRef<"SocialLink", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SocialLink findUnique
+   */
+  export type SocialLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialLink to fetch.
+     */
+    where: SocialLinkWhereUniqueInput
+  }
+
+  /**
+   * SocialLink findUniqueOrThrow
+   */
+  export type SocialLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialLink to fetch.
+     */
+    where: SocialLinkWhereUniqueInput
+  }
+
+  /**
+   * SocialLink findFirst
+   */
+  export type SocialLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialLink to fetch.
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialLinks to fetch.
+     */
+    orderBy?: SocialLinkOrderByWithRelationInput | SocialLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocialLinks.
+     */
+    cursor?: SocialLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocialLinks.
+     */
+    distinct?: SocialLinkScalarFieldEnum | SocialLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocialLink findFirstOrThrow
+   */
+  export type SocialLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialLink to fetch.
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialLinks to fetch.
+     */
+    orderBy?: SocialLinkOrderByWithRelationInput | SocialLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SocialLinks.
+     */
+    cursor?: SocialLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SocialLinks.
+     */
+    distinct?: SocialLinkScalarFieldEnum | SocialLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocialLink findMany
+   */
+  export type SocialLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which SocialLinks to fetch.
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SocialLinks to fetch.
+     */
+    orderBy?: SocialLinkOrderByWithRelationInput | SocialLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SocialLinks.
+     */
+    cursor?: SocialLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SocialLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SocialLinks.
+     */
+    skip?: number
+    distinct?: SocialLinkScalarFieldEnum | SocialLinkScalarFieldEnum[]
+  }
+
+  /**
+   * SocialLink create
+   */
+  export type SocialLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SocialLink.
+     */
+    data: XOR<SocialLinkCreateInput, SocialLinkUncheckedCreateInput>
+  }
+
+  /**
+   * SocialLink createMany
+   */
+  export type SocialLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SocialLinks.
+     */
+    data: SocialLinkCreateManyInput | SocialLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SocialLink createManyAndReturn
+   */
+  export type SocialLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many SocialLinks.
+     */
+    data: SocialLinkCreateManyInput | SocialLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SocialLink update
+   */
+  export type SocialLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SocialLink.
+     */
+    data: XOR<SocialLinkUpdateInput, SocialLinkUncheckedUpdateInput>
+    /**
+     * Choose, which SocialLink to update.
+     */
+    where: SocialLinkWhereUniqueInput
+  }
+
+  /**
+   * SocialLink updateMany
+   */
+  export type SocialLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SocialLinks.
+     */
+    data: XOR<SocialLinkUpdateManyMutationInput, SocialLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which SocialLinks to update
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * Limit how many SocialLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SocialLink updateManyAndReturn
+   */
+  export type SocialLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update SocialLinks.
+     */
+    data: XOR<SocialLinkUpdateManyMutationInput, SocialLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which SocialLinks to update
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * Limit how many SocialLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SocialLink upsert
+   */
+  export type SocialLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SocialLink to update in case it exists.
+     */
+    where: SocialLinkWhereUniqueInput
+    /**
+     * In case the SocialLink found by the `where` argument doesn't exist, create a new SocialLink with this data.
+     */
+    create: XOR<SocialLinkCreateInput, SocialLinkUncheckedCreateInput>
+    /**
+     * In case the SocialLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SocialLinkUpdateInput, SocialLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * SocialLink delete
+   */
+  export type SocialLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+    /**
+     * Filter which SocialLink to delete.
+     */
+    where: SocialLinkWhereUniqueInput
+  }
+
+  /**
+   * SocialLink deleteMany
+   */
+  export type SocialLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SocialLinks to delete
+     */
+    where?: SocialLinkWhereInput
+    /**
+     * Limit how many SocialLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SocialLink without action
+   */
+  export type SocialLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SocialLink
+     */
+    select?: SocialLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SocialLink
+     */
+    omit?: SocialLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SocialLinkInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5747,11 +6959,14 @@ export namespace Prisma {
     shortDescription: 'shortDescription',
     fullDescription: 'fullDescription',
     link: 'link',
-    userId: 'userId',
     githubUrl: 'githubUrl',
     tags: 'tags',
     upvotes: 'upvotes',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    userId: 'userId',
+    userName: 'userName',
+    userImage: 'userImage',
+    userBio: 'userBio'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -5775,6 +6990,16 @@ export namespace Prisma {
   };
 
   export type UpvoteScalarFieldEnum = (typeof UpvoteScalarFieldEnum)[keyof typeof UpvoteScalarFieldEnum]
+
+
+  export const SocialLinkScalarFieldEnum: {
+    id: 'id',
+    platform: 'platform',
+    url: 'url',
+    productId: 'productId'
+  };
+
+  export type SocialLinkScalarFieldEnum = (typeof SocialLinkScalarFieldEnum)[keyof typeof SocialLinkScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5963,13 +7188,17 @@ export namespace Prisma {
     shortDescription?: StringFilter<"Product"> | string
     fullDescription?: StringFilter<"Product"> | string
     link?: StringFilter<"Product"> | string
-    userId?: StringFilter<"Product"> | string
     githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
+    userId?: StringFilter<"Product"> | string
+    userName?: StringNullableFilter<"Product"> | string | null
+    userImage?: StringNullableFilter<"Product"> | string | null
+    userBio?: StringNullableFilter<"Product"> | string | null
     saves?: SavedProductListRelationFilter
     upvoters?: UpvoteListRelationFilter
+    socialLinks?: SocialLinkListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -5979,13 +7208,17 @@ export namespace Prisma {
     shortDescription?: SortOrder
     fullDescription?: SortOrder
     link?: SortOrder
-    userId?: SortOrder
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrderInput | SortOrder
+    userImage?: SortOrderInput | SortOrder
+    userBio?: SortOrderInput | SortOrder
     saves?: SavedProductOrderByRelationAggregateInput
     upvoters?: UpvoteOrderByRelationAggregateInput
+    socialLinks?: SocialLinkOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -5998,13 +7231,17 @@ export namespace Prisma {
     shortDescription?: StringFilter<"Product"> | string
     fullDescription?: StringFilter<"Product"> | string
     link?: StringFilter<"Product"> | string
-    userId?: StringFilter<"Product"> | string
     githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
+    userId?: StringFilter<"Product"> | string
+    userName?: StringNullableFilter<"Product"> | string | null
+    userImage?: StringNullableFilter<"Product"> | string | null
+    userBio?: StringNullableFilter<"Product"> | string | null
     saves?: SavedProductListRelationFilter
     upvoters?: UpvoteListRelationFilter
+    socialLinks?: SocialLinkListRelationFilter
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
@@ -6014,11 +7251,14 @@ export namespace Prisma {
     shortDescription?: SortOrder
     fullDescription?: SortOrder
     link?: SortOrder
-    userId?: SortOrder
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrderInput | SortOrder
+    userImage?: SortOrderInput | SortOrder
+    userBio?: SortOrderInput | SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -6036,11 +7276,14 @@ export namespace Prisma {
     shortDescription?: StringWithAggregatesFilter<"Product"> | string
     fullDescription?: StringWithAggregatesFilter<"Product"> | string
     link?: StringWithAggregatesFilter<"Product"> | string
-    userId?: StringWithAggregatesFilter<"Product"> | string
     githubUrl?: StringWithAggregatesFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntWithAggregatesFilter<"Product"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    userId?: StringWithAggregatesFilter<"Product"> | string
+    userName?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    userImage?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    userBio?: StringNullableWithAggregatesFilter<"Product"> | string | null
   }
 
   export type SavedProductWhereInput = {
@@ -6149,6 +7392,56 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Upvote"> | string
     productId?: StringWithAggregatesFilter<"Upvote"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Upvote"> | Date | string
+  }
+
+  export type SocialLinkWhereInput = {
+    AND?: SocialLinkWhereInput | SocialLinkWhereInput[]
+    OR?: SocialLinkWhereInput[]
+    NOT?: SocialLinkWhereInput | SocialLinkWhereInput[]
+    id?: StringFilter<"SocialLink"> | string
+    platform?: StringFilter<"SocialLink"> | string
+    url?: StringFilter<"SocialLink"> | string
+    productId?: StringFilter<"SocialLink"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }
+
+  export type SocialLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    platform?: SortOrder
+    url?: SortOrder
+    productId?: SortOrder
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type SocialLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SocialLinkWhereInput | SocialLinkWhereInput[]
+    OR?: SocialLinkWhereInput[]
+    NOT?: SocialLinkWhereInput | SocialLinkWhereInput[]
+    platform?: StringFilter<"SocialLink"> | string
+    url?: StringFilter<"SocialLink"> | string
+    productId?: StringFilter<"SocialLink"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id">
+
+  export type SocialLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    platform?: SortOrder
+    url?: SortOrder
+    productId?: SortOrder
+    _count?: SocialLinkCountOrderByAggregateInput
+    _max?: SocialLinkMaxOrderByAggregateInput
+    _min?: SocialLinkMinOrderByAggregateInput
+  }
+
+  export type SocialLinkScalarWhereWithAggregatesInput = {
+    AND?: SocialLinkScalarWhereWithAggregatesInput | SocialLinkScalarWhereWithAggregatesInput[]
+    OR?: SocialLinkScalarWhereWithAggregatesInput[]
+    NOT?: SocialLinkScalarWhereWithAggregatesInput | SocialLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SocialLink"> | string
+    platform?: StringWithAggregatesFilter<"SocialLink"> | string
+    url?: StringWithAggregatesFilter<"SocialLink"> | string
+    productId?: StringWithAggregatesFilter<"SocialLink"> | string
   }
 
   export type UserCreateInput = {
@@ -6264,13 +7557,17 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     saves?: SavedProductCreateNestedManyWithoutProductInput
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -6280,13 +7577,17 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -6296,13 +7597,17 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -6312,13 +7617,17 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -6328,11 +7637,14 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -6342,11 +7654,14 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -6356,11 +7671,14 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SavedProductCreateInput = {
@@ -6455,6 +7773,54 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialLinkCreateInput = {
+    id?: string
+    platform: string
+    url: string
+    product: ProductCreateNestedOneWithoutSocialLinksInput
+  }
+
+  export type SocialLinkUncheckedCreateInput = {
+    id?: string
+    platform: string
+    url: string
+    productId: string
+  }
+
+  export type SocialLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutSocialLinksNestedInput
+  }
+
+  export type SocialLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SocialLinkCreateManyInput = {
+    id?: string
+    platform: string
+    url: string
+    productId: string
+  }
+
+  export type SocialLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SocialLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6634,6 +8000,16 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type SocialLinkListRelationFilter = {
+    every?: SocialLinkWhereInput
+    some?: SocialLinkWhereInput
+    none?: SocialLinkWhereInput
+  }
+
+  export type SocialLinkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -6641,11 +8017,14 @@ export namespace Prisma {
     shortDescription?: SortOrder
     fullDescription?: SortOrder
     link?: SortOrder
-    userId?: SortOrder
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    userImage?: SortOrder
+    userBio?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -6659,10 +8038,13 @@ export namespace Prisma {
     shortDescription?: SortOrder
     fullDescription?: SortOrder
     link?: SortOrder
-    userId?: SortOrder
     githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    userImage?: SortOrder
+    userBio?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -6672,10 +8054,13 @@ export namespace Prisma {
     shortDescription?: SortOrder
     fullDescription?: SortOrder
     link?: SortOrder
-    userId?: SortOrder
     githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    userId?: SortOrder
+    userName?: SortOrder
+    userImage?: SortOrder
+    userBio?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -6758,6 +8143,27 @@ export namespace Prisma {
     userId?: SortOrder
     productId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type SocialLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    platform?: SortOrder
+    url?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type SocialLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    platform?: SortOrder
+    url?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type SocialLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    platform?: SortOrder
+    url?: SortOrder
+    productId?: SortOrder
   }
 
   export type SavedProductCreateNestedManyWithoutUserInput = {
@@ -6874,6 +8280,13 @@ export namespace Prisma {
     connect?: UpvoteWhereUniqueInput | UpvoteWhereUniqueInput[]
   }
 
+  export type SocialLinkCreateNestedManyWithoutProductInput = {
+    create?: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput> | SocialLinkCreateWithoutProductInput[] | SocialLinkUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: SocialLinkCreateOrConnectWithoutProductInput | SocialLinkCreateOrConnectWithoutProductInput[]
+    createMany?: SocialLinkCreateManyProductInputEnvelope
+    connect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+  }
+
   export type SavedProductUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<SavedProductCreateWithoutProductInput, SavedProductUncheckedCreateWithoutProductInput> | SavedProductCreateWithoutProductInput[] | SavedProductUncheckedCreateWithoutProductInput[]
     connectOrCreate?: SavedProductCreateOrConnectWithoutProductInput | SavedProductCreateOrConnectWithoutProductInput[]
@@ -6886,6 +8299,13 @@ export namespace Prisma {
     connectOrCreate?: UpvoteCreateOrConnectWithoutProductInput | UpvoteCreateOrConnectWithoutProductInput[]
     createMany?: UpvoteCreateManyProductInputEnvelope
     connect?: UpvoteWhereUniqueInput | UpvoteWhereUniqueInput[]
+  }
+
+  export type SocialLinkUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput> | SocialLinkCreateWithoutProductInput[] | SocialLinkUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: SocialLinkCreateOrConnectWithoutProductInput | SocialLinkCreateOrConnectWithoutProductInput[]
+    createMany?: SocialLinkCreateManyProductInputEnvelope
+    connect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
   }
 
   export type ProductUpdatetagsInput = {
@@ -6929,6 +8349,20 @@ export namespace Prisma {
     deleteMany?: UpvoteScalarWhereInput | UpvoteScalarWhereInput[]
   }
 
+  export type SocialLinkUpdateManyWithoutProductNestedInput = {
+    create?: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput> | SocialLinkCreateWithoutProductInput[] | SocialLinkUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: SocialLinkCreateOrConnectWithoutProductInput | SocialLinkCreateOrConnectWithoutProductInput[]
+    upsert?: SocialLinkUpsertWithWhereUniqueWithoutProductInput | SocialLinkUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: SocialLinkCreateManyProductInputEnvelope
+    set?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    disconnect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    delete?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    connect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    update?: SocialLinkUpdateWithWhereUniqueWithoutProductInput | SocialLinkUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: SocialLinkUpdateManyWithWhereWithoutProductInput | SocialLinkUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: SocialLinkScalarWhereInput | SocialLinkScalarWhereInput[]
+  }
+
   export type SavedProductUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<SavedProductCreateWithoutProductInput, SavedProductUncheckedCreateWithoutProductInput> | SavedProductCreateWithoutProductInput[] | SavedProductUncheckedCreateWithoutProductInput[]
     connectOrCreate?: SavedProductCreateOrConnectWithoutProductInput | SavedProductCreateOrConnectWithoutProductInput[]
@@ -6955,6 +8389,20 @@ export namespace Prisma {
     update?: UpvoteUpdateWithWhereUniqueWithoutProductInput | UpvoteUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: UpvoteUpdateManyWithWhereWithoutProductInput | UpvoteUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: UpvoteScalarWhereInput | UpvoteScalarWhereInput[]
+  }
+
+  export type SocialLinkUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput> | SocialLinkCreateWithoutProductInput[] | SocialLinkUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: SocialLinkCreateOrConnectWithoutProductInput | SocialLinkCreateOrConnectWithoutProductInput[]
+    upsert?: SocialLinkUpsertWithWhereUniqueWithoutProductInput | SocialLinkUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: SocialLinkCreateManyProductInputEnvelope
+    set?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    disconnect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    delete?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    connect?: SocialLinkWhereUniqueInput | SocialLinkWhereUniqueInput[]
+    update?: SocialLinkUpdateWithWhereUniqueWithoutProductInput | SocialLinkUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: SocialLinkUpdateManyWithWhereWithoutProductInput | SocialLinkUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: SocialLinkScalarWhereInput | SocialLinkScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSavedProductsInput = {
@@ -7011,6 +8459,20 @@ export namespace Prisma {
     upsert?: ProductUpsertWithoutUpvotersInput
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutUpvotersInput, ProductUpdateWithoutUpvotersInput>, ProductUncheckedUpdateWithoutUpvotersInput>
+  }
+
+  export type ProductCreateNestedOneWithoutSocialLinksInput = {
+    create?: XOR<ProductCreateWithoutSocialLinksInput, ProductUncheckedCreateWithoutSocialLinksInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutSocialLinksInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutSocialLinksNestedInput = {
+    create?: XOR<ProductCreateWithoutSocialLinksInput, ProductUncheckedCreateWithoutSocialLinksInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutSocialLinksInput
+    upsert?: ProductUpsertWithoutSocialLinksInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutSocialLinksInput, ProductUpdateWithoutSocialLinksInput>, ProductUncheckedUpdateWithoutSocialLinksInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7289,6 +8751,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SocialLinkCreateWithoutProductInput = {
+    id?: string
+    platform: string
+    url: string
+  }
+
+  export type SocialLinkUncheckedCreateWithoutProductInput = {
+    id?: string
+    platform: string
+    url: string
+  }
+
+  export type SocialLinkCreateOrConnectWithoutProductInput = {
+    where: SocialLinkWhereUniqueInput
+    create: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput>
+  }
+
+  export type SocialLinkCreateManyProductInputEnvelope = {
+    data: SocialLinkCreateManyProductInput | SocialLinkCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SavedProductUpsertWithWhereUniqueWithoutProductInput = {
     where: SavedProductWhereUniqueInput
     update: XOR<SavedProductUpdateWithoutProductInput, SavedProductUncheckedUpdateWithoutProductInput>
@@ -7319,6 +8803,32 @@ export namespace Prisma {
   export type UpvoteUpdateManyWithWhereWithoutProductInput = {
     where: UpvoteScalarWhereInput
     data: XOR<UpvoteUpdateManyMutationInput, UpvoteUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type SocialLinkUpsertWithWhereUniqueWithoutProductInput = {
+    where: SocialLinkWhereUniqueInput
+    update: XOR<SocialLinkUpdateWithoutProductInput, SocialLinkUncheckedUpdateWithoutProductInput>
+    create: XOR<SocialLinkCreateWithoutProductInput, SocialLinkUncheckedCreateWithoutProductInput>
+  }
+
+  export type SocialLinkUpdateWithWhereUniqueWithoutProductInput = {
+    where: SocialLinkWhereUniqueInput
+    data: XOR<SocialLinkUpdateWithoutProductInput, SocialLinkUncheckedUpdateWithoutProductInput>
+  }
+
+  export type SocialLinkUpdateManyWithWhereWithoutProductInput = {
+    where: SocialLinkScalarWhereInput
+    data: XOR<SocialLinkUpdateManyMutationInput, SocialLinkUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type SocialLinkScalarWhereInput = {
+    AND?: SocialLinkScalarWhereInput | SocialLinkScalarWhereInput[]
+    OR?: SocialLinkScalarWhereInput[]
+    NOT?: SocialLinkScalarWhereInput | SocialLinkScalarWhereInput[]
+    id?: StringFilter<"SocialLink"> | string
+    platform?: StringFilter<"SocialLink"> | string
+    url?: StringFilter<"SocialLink"> | string
+    productId?: StringFilter<"SocialLink"> | string
   }
 
   export type UserCreateWithoutSavedProductsInput = {
@@ -7363,12 +8873,16 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSavesInput = {
@@ -7378,12 +8892,16 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSavesInput = {
@@ -7450,12 +8968,16 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSavesInput = {
@@ -7465,12 +8987,16 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserCreateWithoutUpvotesInput = {
@@ -7515,12 +9041,16 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     saves?: SavedProductCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutUpvotersInput = {
@@ -7530,12 +9060,16 @@ export namespace Prisma {
     shortDescription: string
     fullDescription: string
     link: string
-    userId: string
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
+    socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutUpvotersInput = {
@@ -7602,12 +9136,16 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutUpvotersInput = {
@@ -7617,12 +9155,108 @@ export namespace Prisma {
     shortDescription?: StringFieldUpdateOperationsInput | string
     fullDescription?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
+    socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductCreateWithoutSocialLinksInput = {
+    id?: string
+    title: string
+    logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    githubUrl: string
+    tags?: ProductCreatetagsInput | string[]
+    upvotes?: number
+    createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
+    saves?: SavedProductCreateNestedManyWithoutProductInput
+    upvoters?: UpvoteCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutSocialLinksInput = {
+    id?: string
+    title: string
+    logo: string
+    shortDescription: string
+    fullDescription: string
+    link: string
+    githubUrl: string
+    tags?: ProductCreatetagsInput | string[]
+    upvotes?: number
+    createdAt?: Date | string
+    userId: string
+    userName?: string | null
+    userImage?: string | null
+    userBio?: string | null
+    saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
+    upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutSocialLinksInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutSocialLinksInput, ProductUncheckedCreateWithoutSocialLinksInput>
+  }
+
+  export type ProductUpsertWithoutSocialLinksInput = {
+    update: XOR<ProductUpdateWithoutSocialLinksInput, ProductUncheckedUpdateWithoutSocialLinksInput>
+    create: XOR<ProductCreateWithoutSocialLinksInput, ProductUncheckedCreateWithoutSocialLinksInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutSocialLinksInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutSocialLinksInput, ProductUncheckedUpdateWithoutSocialLinksInput>
+  }
+
+  export type ProductUpdateWithoutSocialLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
+    tags?: ProductUpdatetagsInput | string[]
+    upvotes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
+    saves?: SavedProductUpdateManyWithoutProductNestedInput
+    upvoters?: UpvoteUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutSocialLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    logo?: StringFieldUpdateOperationsInput | string
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    fullDescription?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
+    githubUrl?: StringFieldUpdateOperationsInput | string
+    tags?: ProductUpdatetagsInput | string[]
+    upvotes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userName?: NullableStringFieldUpdateOperationsInput | string | null
+    userImage?: NullableStringFieldUpdateOperationsInput | string | null
+    userBio?: NullableStringFieldUpdateOperationsInput | string | null
+    saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
+    upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type SavedProductCreateManyUserInput = {
@@ -7685,6 +9319,12 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type SocialLinkCreateManyProductInput = {
+    id?: string
+    platform: string
+    url: string
+  }
+
   export type SavedProductUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7719,6 +9359,24 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SocialLinkUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SocialLinkUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SocialLinkUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
   }
 
 

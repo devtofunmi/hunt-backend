@@ -141,11 +141,14 @@ exports.Prisma.ProductScalarFieldEnum = {
   shortDescription: 'shortDescription',
   fullDescription: 'fullDescription',
   link: 'link',
-  userId: 'userId',
   githubUrl: 'githubUrl',
   tags: 'tags',
   upvotes: 'upvotes',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  userId: 'userId',
+  userName: 'userName',
+  userImage: 'userImage',
+  userBio: 'userBio'
 };
 
 exports.Prisma.SavedProductScalarFieldEnum = {
@@ -160,6 +163,13 @@ exports.Prisma.UpvoteScalarFieldEnum = {
   userId: 'userId',
   productId: 'productId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.SocialLinkScalarFieldEnum = {
+  id: 'id',
+  platform: 'platform',
+  url: 'url',
+  productId: 'productId'
 };
 
 exports.Prisma.SortOrder = {
@@ -182,7 +192,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Product: 'Product',
   SavedProduct: 'SavedProduct',
-  Upvote: 'Upvote'
+  Upvote: 'Upvote',
+  SocialLink: 'SocialLink'
 };
 
 /**
