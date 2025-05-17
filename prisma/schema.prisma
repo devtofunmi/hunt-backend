@@ -9,21 +9,23 @@ datasource db {
 }
 
 model User {
-  id        String          @id @default(uuid())
-  email     String
-  username  String          @unique
-  password  String
-  image     String?
-  bio       String?
-  twitter   String?
-  github    String?
-  linkedin  String?
-  bluesky   String?
-  createdAt DateTime        @default(now())
+  id           String          @id @default(uuid())
+  email        String
+  username     String          @unique
+  password     String
+  image        String?
+  bio          String?
+  twitter      String?
+  github       String?
+  linkedin     String?
+  bluesky      String?
+  createdAt    DateTime        @default(now())
 
   // Relations
   savedProducts SavedProduct[]
   upvotes       Upvote[]
+  products      Product[]        // 👈 Added: relation to Product
+  // socialLinks   SocialLink[]   // 👈 Optional: only add if users also have social links
 }
 
 model Product {
@@ -37,17 +39,15 @@ model Product {
   tags             String[]
   upvotes          Int            @default(0)
   createdAt        DateTime       @default(now())
+
   userId           String
-  userName         String?  
-  userImage        String?  
-  userBio          String?  
+  user             User           @relation(fields: [userId], references: [id]) //Relation to User
 
   // Relations
   saves            SavedProduct[]
   upvoters         Upvote[]
   socialLinks      SocialLink[]
 }
-
 
 model SavedProduct {
   id        String   @id @default(uuid())
