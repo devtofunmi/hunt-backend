@@ -14,13 +14,12 @@ export const createProduct = async (c: Context) => {
     link,
     githubUrl,
     tags,
-    upvotes = 0,
-    user,
+    socialLinks,
   } = body;
 
   if (
     !title || !logo || !shortDescription || !fullDescription ||
-    !link || !githubUrl || !tags || !Array.isArray(tags) || !user
+    !link || !githubUrl || !tags || !Array.isArray(tags)
   ) {
     return c.json({ error: 'Missing or invalid fields' }, 400);
   }
@@ -34,13 +33,9 @@ export const createProduct = async (c: Context) => {
       fullDescription,
       link,
       githubUrl,
-      upvotes,
       tags,
-      userName: user.name,
-      userImage: user.image,
-      userBio: user.bio,
       socialLinks: {
-        create: user.socialLinks.map((link: { platform: string; url: string }) => ({
+        create: (socialLinks || []).map((link: { platform: string; url: string }) => ({
           platform: link.platform,
           url: link.url,
         })),
@@ -64,20 +59,32 @@ export const getUserProducts = async (c: Context) => {
   const products = await prisma.product.findMany({
     where: { userId },
     orderBy: { createdAt: 'desc' },
+    include: {
+      socialLinks: true,
+    },
   });
 
   return c.json(products);
 };
 
 export const getAllProducts = async (c: Context) => {
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    include: {
+      socialLinks: true,
+    },
+  });
+
   return c.json(products);
 };
+
 
 export const getTopProducts = async (c: Context) => {
   const products = await prisma.product.findMany({
     orderBy: { upvotes: 'desc' },
     take: 10,
+    include: {
+      socialLinks: true,
+    },
   });
   return c.json(products);
 };
@@ -86,7 +93,13 @@ export const getSavedProducts = async (c: Context) => {
   const userId = getUserId(c);
   const saved = await prisma.savedProduct.findMany({
     where: { userId },
-    include: { product: true },
+    include: {
+      product: {
+        include: {
+          socialLinks: true,
+        },
+      },
+    },
   });
 
   const products = saved.map((s) => s.product);
@@ -149,7 +162,13 @@ export const getUpvotedProducts = async (c: Context) => {
 
   const upvoted = await prisma.upvote.findMany({
     where: { userId },
-    include: { product: true },
+    include: {
+      product: {
+        include: {
+          socialLinks: true,
+        },
+      },
+    },
   });
 
   const products = upvoted.map((u) => u.product);
