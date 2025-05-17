@@ -33,15 +33,19 @@ model Product {
   shortDescription String
   fullDescription  String
   link             String
-  userId           String
   githubUrl        String
   tags             String[]
   upvotes          Int      @default(0)
   createdAt        DateTime @default(now())
+  userId           String
+  userName         String?
+  userImage        String?
+  userBio          String?
 
   // Relations
-  saves    SavedProduct[]
-  upvoters Upvote[]
+  saves       SavedProduct[]
+  upvoters    Upvote[]
+  socialLinks SocialLink[]
 }
 
 model SavedProduct {
@@ -53,7 +57,7 @@ model SavedProduct {
   user    User    @relation(fields: [userId], references: [id])
   product Product @relation(fields: [productId], references: [id])
 
-  @@unique([userId, productId]) // One save per user-product
+  @@unique([userId, productId])
 }
 
 model Upvote {
@@ -65,5 +69,14 @@ model Upvote {
   user    User    @relation(fields: [userId], references: [id])
   product Product @relation(fields: [productId], references: [id])
 
-  @@unique([userId, productId]) // One upvote per user-product
+  @@unique([userId, productId])
+}
+
+model SocialLink {
+  id        String @id @default(uuid())
+  platform  String
+  url       String
+  productId String
+
+  product Product @relation(fields: [productId], references: [id])
 }
