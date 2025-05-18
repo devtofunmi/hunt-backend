@@ -24,6 +24,8 @@ model User {
   // Relations
   savedProducts SavedProduct[]
   upvotes       Upvote[]
+  products      Product[] // 👈 Added: relation to Product
+  // socialLinks   SocialLink[]   // 👈 Optional: only add if users also have social links
 }
 
 model Product {
@@ -37,10 +39,9 @@ model Product {
   tags             String[]
   upvotes          Int      @default(0)
   createdAt        DateTime @default(now())
-  userId           String
-  userName         String?
-  userImage        String?
-  userBio          String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id]) //Relation to User
 
   // Relations
   saves       SavedProduct[]
