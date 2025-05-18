@@ -81,11 +81,9 @@ export const getUserProducts = async (c: Context) => {
   return c.json(products);
 };
 
-
 export const getAllProducts = async (c: Context) => {
   const userId = getUserId(c);
 
-  // Fetch all products with user info
   const products = await prisma.product.findMany({
     include: {
       user: {
@@ -103,32 +101,22 @@ export const getAllProducts = async (c: Context) => {
     },
   });
 
-  // If no user is logged in, just return all products with saved: false
   if (!userId) {
     return c.json(
-      products.map((p) => ({
-        ...p,
-        saved: false,
-      }))
+      products.map((p) => ({ ...p, saved: false }))
     );
   }
 
-  // Get all saved product IDs for the current user
   const saved = await prisma.savedProduct.findMany({
     where: {
       userId,
-      productId: {
-        in: products.map((p) => p.id),
-      },
+      productId: { in: products.map((p) => p.id) },
     },
-    select: {
-      productId: true,
-    },
+    select: { productId: true },
   });
 
   const savedSet = new Set(saved.map((s) => s.productId));
 
-  // Attach 'saved' boolean to each product
   const productsWithSaved = products.map((p) => ({
     ...p,
     saved: savedSet.has(p.id),
@@ -136,7 +124,6 @@ export const getAllProducts = async (c: Context) => {
 
   return c.json(productsWithSaved);
 };
-
 
 
 export const getTopProducts = async (c: Context) => {
