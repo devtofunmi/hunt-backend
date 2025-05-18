@@ -39,6 +39,7 @@ model Product {
   githubUrl        String
   tags             String[]
   upvotes          Int            @default(0)
+  saves SavedProduct[]
   createdAt        DateTime       @default(now())
 
   twitter          String?
