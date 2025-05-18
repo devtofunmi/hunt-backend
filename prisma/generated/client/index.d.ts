@@ -2601,6 +2601,10 @@ export namespace Prisma {
     githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
+    twitter: string | null
+    github: string | null
+    linkedin: string | null
+    bluesky: string | null
     userId: string | null
   }
 
@@ -2614,6 +2618,10 @@ export namespace Prisma {
     githubUrl: string | null
     upvotes: number | null
     createdAt: Date | null
+    twitter: string | null
+    github: string | null
+    linkedin: string | null
+    bluesky: string | null
     userId: string | null
   }
 
@@ -2628,6 +2636,10 @@ export namespace Prisma {
     tags: number
     upvotes: number
     createdAt: number
+    twitter: number
+    github: number
+    linkedin: number
+    bluesky: number
     userId: number
     _all: number
   }
@@ -2651,6 +2663,10 @@ export namespace Prisma {
     githubUrl?: true
     upvotes?: true
     createdAt?: true
+    twitter?: true
+    github?: true
+    linkedin?: true
+    bluesky?: true
     userId?: true
   }
 
@@ -2664,6 +2680,10 @@ export namespace Prisma {
     githubUrl?: true
     upvotes?: true
     createdAt?: true
+    twitter?: true
+    github?: true
+    linkedin?: true
+    bluesky?: true
     userId?: true
   }
 
@@ -2678,6 +2698,10 @@ export namespace Prisma {
     tags?: true
     upvotes?: true
     createdAt?: true
+    twitter?: true
+    github?: true
+    linkedin?: true
+    bluesky?: true
     userId?: true
     _all?: true
   }
@@ -2779,6 +2803,10 @@ export namespace Prisma {
     tags: string[]
     upvotes: number
     createdAt: Date
+    twitter: string | null
+    github: string | null
+    linkedin: string | null
+    bluesky: string | null
     userId: string
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -2812,6 +2840,10 @@ export namespace Prisma {
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    twitter?: boolean
+    github?: boolean
+    linkedin?: boolean
+    bluesky?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     saves?: boolean | Product$savesArgs<ExtArgs>
@@ -2831,6 +2863,10 @@ export namespace Prisma {
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    twitter?: boolean
+    github?: boolean
+    linkedin?: boolean
+    bluesky?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -2846,6 +2882,10 @@ export namespace Prisma {
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    twitter?: boolean
+    github?: boolean
+    linkedin?: boolean
+    bluesky?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -2861,10 +2901,14 @@ export namespace Prisma {
     tags?: boolean
     upvotes?: boolean
     createdAt?: boolean
+    twitter?: boolean
+    github?: boolean
+    linkedin?: boolean
+    bluesky?: boolean
     userId?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "githubUrl" | "tags" | "upvotes" | "createdAt" | "userId", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "githubUrl" | "tags" | "upvotes" | "createdAt" | "twitter" | "github" | "linkedin" | "bluesky" | "userId", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     saves?: boolean | Product$savesArgs<ExtArgs>
@@ -2898,6 +2942,10 @@ export namespace Prisma {
       tags: string[]
       upvotes: number
       createdAt: Date
+      twitter: string | null
+      github: string | null
+      linkedin: string | null
+      bluesky: string | null
       userId: string
     }, ExtArgs["result"]["product"]>
     composites: {}
@@ -3336,6 +3384,10 @@ export namespace Prisma {
     readonly tags: FieldRef<"Product", 'String[]'>
     readonly upvotes: FieldRef<"Product", 'Int'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
+    readonly twitter: FieldRef<"Product", 'String'>
+    readonly github: FieldRef<"Product", 'String'>
+    readonly linkedin: FieldRef<"Product", 'String'>
+    readonly bluesky: FieldRef<"Product", 'String'>
     readonly userId: FieldRef<"Product", 'String'>
   }
     
@@ -7075,6 +7127,10 @@ export namespace Prisma {
     tags: 'tags',
     upvotes: 'upvotes',
     createdAt: 'createdAt',
+    twitter: 'twitter',
+    github: 'github',
+    linkedin: 'linkedin',
+    bluesky: 'bluesky',
     userId: 'userId'
   };
 
@@ -7308,6 +7364,10 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
+    twitter?: StringNullableFilter<"Product"> | string | null
+    github?: StringNullableFilter<"Product"> | string | null
+    linkedin?: StringNullableFilter<"Product"> | string | null
+    bluesky?: StringNullableFilter<"Product"> | string | null
     userId?: StringFilter<"Product"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     saves?: SavedProductListRelationFilter
@@ -7326,6 +7386,10 @@ export namespace Prisma {
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    twitter?: SortOrderInput | SortOrder
+    github?: SortOrderInput | SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    bluesky?: SortOrderInput | SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
     saves?: SavedProductOrderByRelationAggregateInput
@@ -7347,6 +7411,10 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
+    twitter?: StringNullableFilter<"Product"> | string | null
+    github?: StringNullableFilter<"Product"> | string | null
+    linkedin?: StringNullableFilter<"Product"> | string | null
+    bluesky?: StringNullableFilter<"Product"> | string | null
     userId?: StringFilter<"Product"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     saves?: SavedProductListRelationFilter
@@ -7365,6 +7433,10 @@ export namespace Prisma {
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    twitter?: SortOrderInput | SortOrder
+    github?: SortOrderInput | SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    bluesky?: SortOrderInput | SortOrder
     userId?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -7387,6 +7459,10 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntWithAggregatesFilter<"Product"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    twitter?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    github?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    linkedin?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    bluesky?: StringNullableWithAggregatesFilter<"Product"> | string | null
     userId?: StringWithAggregatesFilter<"Product"> | string
   }
 
@@ -7681,6 +7757,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     user: UserCreateNestedOneWithoutProductsInput
     saves?: SavedProductCreateNestedManyWithoutProductInput
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
@@ -7698,6 +7778,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     userId: string
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
@@ -7715,6 +7799,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     saves?: SavedProductUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
@@ -7732,6 +7820,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
@@ -7749,6 +7841,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     userId: string
   }
 
@@ -7763,6 +7859,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -7776,6 +7876,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8140,6 +8244,10 @@ export namespace Prisma {
     tags?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    twitter?: SortOrder
+    github?: SortOrder
+    linkedin?: SortOrder
+    bluesky?: SortOrder
     userId?: SortOrder
   }
 
@@ -8157,6 +8265,10 @@ export namespace Prisma {
     githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    twitter?: SortOrder
+    github?: SortOrder
+    linkedin?: SortOrder
+    bluesky?: SortOrder
     userId?: SortOrder
   }
 
@@ -8170,6 +8282,10 @@ export namespace Prisma {
     githubUrl?: SortOrder
     upvotes?: SortOrder
     createdAt?: SortOrder
+    twitter?: SortOrder
+    github?: SortOrder
+    linkedin?: SortOrder
+    bluesky?: SortOrder
     userId?: SortOrder
   }
 
@@ -8900,6 +9016,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     saves?: SavedProductCreateNestedManyWithoutProductInput
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
@@ -8916,6 +9036,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
@@ -9037,6 +9161,10 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
     createdAt?: DateTimeFilter<"Product"> | Date | string
+    twitter?: StringNullableFilter<"Product"> | string | null
+    github?: StringNullableFilter<"Product"> | string | null
+    linkedin?: StringNullableFilter<"Product"> | string | null
+    bluesky?: StringNullableFilter<"Product"> | string | null
     userId?: StringFilter<"Product"> | string
   }
 
@@ -9317,6 +9445,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     user: UserCreateNestedOneWithoutProductsInput
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
@@ -9333,6 +9465,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     userId: string
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
@@ -9410,6 +9546,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
@@ -9426,6 +9566,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
@@ -9481,6 +9625,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     user: UserCreateNestedOneWithoutProductsInput
     saves?: SavedProductCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkCreateNestedManyWithoutProductInput
@@ -9497,6 +9645,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     userId: string
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
     socialLinks?: SocialLinkUncheckedCreateNestedManyWithoutProductInput
@@ -9574,6 +9726,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     saves?: SavedProductUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
@@ -9590,6 +9746,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
@@ -9606,6 +9766,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     user: UserCreateNestedOneWithoutProductsInput
     saves?: SavedProductCreateNestedManyWithoutProductInput
     upvoters?: UpvoteCreateNestedManyWithoutProductInput
@@ -9622,6 +9786,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
     userId: string
     saves?: SavedProductUncheckedCreateNestedManyWithoutProductInput
     upvoters?: UpvoteUncheckedCreateNestedManyWithoutProductInput
@@ -9693,6 +9861,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     saves?: SavedProductUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
@@ -9709,6 +9881,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
@@ -9782,6 +9958,10 @@ export namespace Prisma {
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
     createdAt?: Date | string
+    twitter?: string | null
+    github?: string | null
+    linkedin?: string | null
+    bluesky?: string | null
   }
 
   export type SocialLinkCreateManyUserInput = {
@@ -9838,6 +10018,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUpdateManyWithoutProductNestedInput
@@ -9854,6 +10038,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
     saves?: SavedProductUncheckedUpdateManyWithoutProductNestedInput
     upvoters?: UpvoteUncheckedUpdateManyWithoutProductNestedInput
     socialLinks?: SocialLinkUncheckedUpdateManyWithoutProductNestedInput
@@ -9870,6 +10058,10 @@ export namespace Prisma {
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    twitter?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    bluesky?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialLinkUpdateWithoutUserInput = {
