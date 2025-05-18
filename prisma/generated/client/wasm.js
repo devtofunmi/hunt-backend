@@ -145,10 +145,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   tags: 'tags',
   upvotes: 'upvotes',
   createdAt: 'createdAt',
-  userId: 'userId',
-  userName: 'userName',
-  userImage: 'userImage',
-  userBio: 'userBio'
+  userId: 'userId'
 };
 
 exports.Prisma.SavedProductScalarFieldEnum = {
