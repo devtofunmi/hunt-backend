@@ -71,11 +71,21 @@ export const getAllProducts = async (c: Context) => {
   const products = await prisma.product.findMany({
     include: {
       socialLinks: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+          image: true,
+          bio: true,
+          socialLinks: true, 
+        },
+      },
     },
   });
 
   return c.json(products);
 };
+
 
 
 export const getTopProducts = async (c: Context) => {
