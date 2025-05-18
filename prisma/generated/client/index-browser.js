@@ -166,7 +166,8 @@ exports.Prisma.SocialLinkScalarFieldEnum = {
   id: 'id',
   platform: 'platform',
   url: 'url',
-  productId: 'productId'
+  productId: 'productId',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
