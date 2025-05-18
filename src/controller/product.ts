@@ -82,8 +82,6 @@ export const getUserProducts = async (c: Context) => {
 };
 
 export const getAllProducts = async (c: Context) => {
-  const userId = getUserId(c);
-
   const products = await prisma.product.findMany({
     include: {
       user: {
@@ -101,30 +99,8 @@ export const getAllProducts = async (c: Context) => {
     },
   });
 
-  if (!userId) {
-    return c.json(
-      products.map((p) => ({ ...p, saved: false }))
-    );
-  }
-
-  const saved = await prisma.savedProduct.findMany({
-    where: {
-      userId,
-      productId: { in: products.map((p) => p.id) },
-    },
-    select: { productId: true },
-  });
-
-  const savedSet = new Set(saved.map((s) => s.productId));
-
-  const productsWithSaved = products.map((p) => ({
-    ...p,
-    saved: savedSet.has(p.id),
-  }));
-
-  return c.json(productsWithSaved);
+  return c.json(products);
 };
-
 
 export const getTopProducts = async (c: Context) => {
   const products = await prisma.product.findMany({
