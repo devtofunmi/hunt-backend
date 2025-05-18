@@ -24,8 +24,8 @@ model User {
   // Relations
   savedProducts SavedProduct[]
   upvotes       Upvote[]
-  products      Product[]        // 👈 Added: relation to Product
-  // socialLinks   SocialLink[]   // 👈 Optional: only add if users also have social links
+  products      Product[]        //Added: relation to Product
+  // socialLinks   SocialLink[]   //Optional: only add if users also have social links
 }
 
 model Product {
