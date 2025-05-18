@@ -24,6 +24,19 @@ export const createProduct = async (c: Context) => {
     return c.json({ error: 'Missing or invalid fields' }, 400);
   }
 
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  if (!isValidUrl(link) || !isValidUrl(githubUrl)) {
+    return c.json({ error: 'Invalid link or GitHub URL' }, 400);
+  }
+
   const product = await prisma.product.create({
     data: {
       userId,
@@ -48,6 +61,7 @@ export const createProduct = async (c: Context) => {
 
   return c.json(product, 201);
 };
+
 
 export const getUserProducts = async (c: Context) => {
   const userId = getUserId(c);
