@@ -41,14 +41,20 @@ model Product {
   upvotes          Int            @default(0)
   createdAt        DateTime       @default(now())
 
+  twitter          String?
+  github           String?
+  linkedin         String?
+  bluesky          String?
+
   userId           String
-  user             User           @relation(fields: [userId], references: [id]) //Relation to User
+  user             User           @relation(fields: [userId], references: [id]) // Relation to User
 
   // Relations
   saves            SavedProduct[]
   upvoters         Upvote[]
   socialLinks      SocialLink[]
 }
+
 
 model SavedProduct {
   id        String   @id @default(uuid())
