@@ -39,6 +39,8 @@ model Product {
   githubUrl        String
   tags             String[]
   upvotes          Int            @default(0)
+  views            Int            @default(0) 
+  isFeatured       Boolean        @default(false) 
   createdAt        DateTime       @default(now())
 
   twitter          String?
@@ -47,7 +49,7 @@ model Product {
   bluesky          String?
 
   userId           String
-  user             User           @relation(fields: [userId], references: [id]) // Relation to User
+  user             User           @relation(fields: [userId], references: [id])
 
   // Relations
   saves            SavedProduct[]
@@ -90,4 +92,3 @@ model SocialLink {
   product   Product? @relation(fields: [productId], references: [id])
   user      User?    @relation(fields: [userId], references: [id])
 }
-
