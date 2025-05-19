@@ -2,32 +2,29 @@ import prisma from "../prisma/client.js";
 
 
 export const getAnalyticsStats = async () => {
-  const [totalProducts, totalViews, totalUpvotes, featuredProducts] = await Promise.all([
+  // Fetch product counts, sums, and the analytics record with homepageViews
+  const [totalProducts, productViews, totalUpvotes, featuredProducts, analyticsRecord] = await Promise.all([
     prisma.product.count(),
     prisma.product.aggregate({
-      _sum: {
-        views: true, // Make sure 'views' is a numeric field in your Product model
-      },
+      _sum: { views: true }, // total product views (optional)
     }),
     prisma.product.aggregate({
-      _sum: {
-        upvotes: true,
-      },
+      _sum: { upvotes: true },
     }),
     prisma.product.count({
-      where: {
-        isFeatured: true,
-      },
+      where: { isFeatured: true },
     }),
+    prisma.analytics.findFirst(), // Get homepage views record
   ]);
 
   return {
     totalProducts,
-    totalViews: totalViews._sum.views || 0,
+    totalViews: analyticsRecord?.homepageViews || 0,  // Use homepageViews here
     totalUpvotes: totalUpvotes._sum.upvotes || 0,
     featuredProducts,
   };
 };
+
 
 export const incrementHomepageViews = async () => {
   try {
