@@ -134,6 +134,13 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AnalyticsScalarFieldEnum = {
+  id: 'id',
+  homepageViews: 'homepageViews',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -194,6 +201,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Analytics: 'Analytics',
   Product: 'Product',
   SavedProduct: 'SavedProduct',
   Upvote: 'Upvote',

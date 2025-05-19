@@ -28,3 +28,31 @@ export const getAnalyticsStats = async () => {
     featuredProducts,
   };
 };
+
+export const incrementHomepageViews = async () => {
+  try {
+    const record = await prisma.analytics.findFirst();
+
+    if (record) {
+      await prisma.analytics.update({
+        where: { id: record.id },
+        data: {
+          homepageViews: {
+            increment: 1,
+          },
+        },
+      });
+    } else {
+      await prisma.analytics.create({
+        data: {
+          homepageViews: 1,
+        },
+      });
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error incrementing homepage views:", error);
+    return { success: false, error: "Failed to increment homepage views" };
+  }
+};

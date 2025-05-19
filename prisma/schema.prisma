@@ -28,6 +28,14 @@ model User {
   socialLinks   SocialLink[]  
 }
 
+model Analytics {
+  id             String   @id @default(uuid())
+  homepageViews  Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
 
 model Product {
   id               String         @id @default(uuid())
@@ -56,6 +64,9 @@ model Product {
   upvoters         Upvote[]
   socialLinks      SocialLink[]
 }
+
+
+
 
 
 model SavedProduct {
