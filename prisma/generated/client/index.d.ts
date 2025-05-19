@@ -2585,10 +2585,12 @@ export namespace Prisma {
 
   export type ProductAvgAggregateOutputType = {
     upvotes: number | null
+    views: number | null
   }
 
   export type ProductSumAggregateOutputType = {
     upvotes: number | null
+    views: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -2600,6 +2602,8 @@ export namespace Prisma {
     link: string | null
     githubUrl: string | null
     upvotes: number | null
+    views: number | null
+    isFeatured: boolean | null
     createdAt: Date | null
     twitter: string | null
     github: string | null
@@ -2617,6 +2621,8 @@ export namespace Prisma {
     link: string | null
     githubUrl: string | null
     upvotes: number | null
+    views: number | null
+    isFeatured: boolean | null
     createdAt: Date | null
     twitter: string | null
     github: string | null
@@ -2635,6 +2641,8 @@ export namespace Prisma {
     githubUrl: number
     tags: number
     upvotes: number
+    views: number
+    isFeatured: number
     createdAt: number
     twitter: number
     github: number
@@ -2647,10 +2655,12 @@ export namespace Prisma {
 
   export type ProductAvgAggregateInputType = {
     upvotes?: true
+    views?: true
   }
 
   export type ProductSumAggregateInputType = {
     upvotes?: true
+    views?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -2662,6 +2672,8 @@ export namespace Prisma {
     link?: true
     githubUrl?: true
     upvotes?: true
+    views?: true
+    isFeatured?: true
     createdAt?: true
     twitter?: true
     github?: true
@@ -2679,6 +2691,8 @@ export namespace Prisma {
     link?: true
     githubUrl?: true
     upvotes?: true
+    views?: true
+    isFeatured?: true
     createdAt?: true
     twitter?: true
     github?: true
@@ -2697,6 +2711,8 @@ export namespace Prisma {
     githubUrl?: true
     tags?: true
     upvotes?: true
+    views?: true
+    isFeatured?: true
     createdAt?: true
     twitter?: true
     github?: true
@@ -2802,6 +2818,8 @@ export namespace Prisma {
     githubUrl: string
     tags: string[]
     upvotes: number
+    views: number
+    isFeatured: boolean
     createdAt: Date
     twitter: string | null
     github: string | null
@@ -2839,6 +2857,8 @@ export namespace Prisma {
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
+    views?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     twitter?: boolean
     github?: boolean
@@ -2862,6 +2882,8 @@ export namespace Prisma {
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
+    views?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     twitter?: boolean
     github?: boolean
@@ -2881,6 +2903,8 @@ export namespace Prisma {
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
+    views?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     twitter?: boolean
     github?: boolean
@@ -2900,6 +2924,8 @@ export namespace Prisma {
     githubUrl?: boolean
     tags?: boolean
     upvotes?: boolean
+    views?: boolean
+    isFeatured?: boolean
     createdAt?: boolean
     twitter?: boolean
     github?: boolean
@@ -2908,7 +2934,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "githubUrl" | "tags" | "upvotes" | "createdAt" | "twitter" | "github" | "linkedin" | "bluesky" | "userId", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "logo" | "shortDescription" | "fullDescription" | "link" | "githubUrl" | "tags" | "upvotes" | "views" | "isFeatured" | "createdAt" | "twitter" | "github" | "linkedin" | "bluesky" | "userId", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     saves?: boolean | Product$savesArgs<ExtArgs>
@@ -2941,6 +2967,8 @@ export namespace Prisma {
       githubUrl: string
       tags: string[]
       upvotes: number
+      views: number
+      isFeatured: boolean
       createdAt: Date
       twitter: string | null
       github: string | null
@@ -3383,6 +3411,8 @@ export namespace Prisma {
     readonly githubUrl: FieldRef<"Product", 'String'>
     readonly tags: FieldRef<"Product", 'String[]'>
     readonly upvotes: FieldRef<"Product", 'Int'>
+    readonly views: FieldRef<"Product", 'Int'>
+    readonly isFeatured: FieldRef<"Product", 'Boolean'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly twitter: FieldRef<"Product", 'String'>
     readonly github: FieldRef<"Product", 'String'>
@@ -7126,6 +7156,8 @@ export namespace Prisma {
     githubUrl: 'githubUrl',
     tags: 'tags',
     upvotes: 'upvotes',
+    views: 'views',
+    isFeatured: 'isFeatured',
     createdAt: 'createdAt',
     twitter: 'twitter',
     github: 'github',
@@ -7236,6 +7268,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -7363,6 +7402,8 @@ export namespace Prisma {
     githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
+    views?: IntFilter<"Product"> | number
+    isFeatured?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     twitter?: StringNullableFilter<"Product"> | string | null
     github?: StringNullableFilter<"Product"> | string | null
@@ -7385,6 +7426,8 @@ export namespace Prisma {
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
+    views?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     twitter?: SortOrderInput | SortOrder
     github?: SortOrderInput | SortOrder
@@ -7410,6 +7453,8 @@ export namespace Prisma {
     githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
+    views?: IntFilter<"Product"> | number
+    isFeatured?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     twitter?: StringNullableFilter<"Product"> | string | null
     github?: StringNullableFilter<"Product"> | string | null
@@ -7432,6 +7477,8 @@ export namespace Prisma {
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
+    views?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     twitter?: SortOrderInput | SortOrder
     github?: SortOrderInput | SortOrder
@@ -7458,6 +7505,8 @@ export namespace Prisma {
     githubUrl?: StringWithAggregatesFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntWithAggregatesFilter<"Product"> | number
+    views?: IntWithAggregatesFilter<"Product"> | number
+    isFeatured?: BoolWithAggregatesFilter<"Product"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     twitter?: StringNullableWithAggregatesFilter<"Product"> | string | null
     github?: StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -7756,6 +7805,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -7777,6 +7828,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -7798,6 +7851,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7819,6 +7874,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7840,6 +7897,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -7858,6 +7917,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7875,6 +7936,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8228,6 +8291,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -8243,6 +8311,8 @@ export namespace Prisma {
     githubUrl?: SortOrder
     tags?: SortOrder
     upvotes?: SortOrder
+    views?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     twitter?: SortOrder
     github?: SortOrder
@@ -8253,6 +8323,7 @@ export namespace Prisma {
 
   export type ProductAvgOrderByAggregateInput = {
     upvotes?: SortOrder
+    views?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -8264,6 +8335,8 @@ export namespace Prisma {
     link?: SortOrder
     githubUrl?: SortOrder
     upvotes?: SortOrder
+    views?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     twitter?: SortOrder
     github?: SortOrder
@@ -8281,6 +8354,8 @@ export namespace Prisma {
     link?: SortOrder
     githubUrl?: SortOrder
     upvotes?: SortOrder
+    views?: SortOrder
+    isFeatured?: SortOrder
     createdAt?: SortOrder
     twitter?: SortOrder
     github?: SortOrder
@@ -8291,6 +8366,7 @@ export namespace Prisma {
 
   export type ProductSumOrderByAggregateInput = {
     upvotes?: SortOrder
+    views?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8307,6 +8383,14 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProductScalarRelationFilter = {
@@ -8645,6 +8729,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UserUpdateOneRequiredWithoutProductsNestedInput = {
     create?: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
     connectOrCreate?: UserCreateOrConnectWithoutProductsInput
@@ -8934,6 +9022,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8959,6 +9052,14 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SavedProductCreateWithoutUserInput = {
@@ -9015,6 +9116,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9035,6 +9138,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9160,6 +9265,8 @@ export namespace Prisma {
     githubUrl?: StringFilter<"Product"> | string
     tags?: StringNullableListFilter<"Product">
     upvotes?: IntFilter<"Product"> | number
+    views?: IntFilter<"Product"> | number
+    isFeatured?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     twitter?: StringNullableFilter<"Product"> | string | null
     github?: StringNullableFilter<"Product"> | string | null
@@ -9444,6 +9551,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9464,6 +9573,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9545,6 +9656,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9565,6 +9678,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9624,6 +9739,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9644,6 +9761,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9725,6 +9844,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9745,6 +9866,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9765,6 +9888,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9785,6 +9910,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -9860,6 +9987,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9880,6 +10009,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9957,6 +10088,8 @@ export namespace Prisma {
     githubUrl: string
     tags?: ProductCreatetagsInput | string[]
     upvotes?: number
+    views?: number
+    isFeatured?: boolean
     createdAt?: Date | string
     twitter?: string | null
     github?: string | null
@@ -10017,6 +10150,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10037,6 +10172,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10057,6 +10194,8 @@ export namespace Prisma {
     githubUrl?: StringFieldUpdateOperationsInput | string
     tags?: ProductUpdatetagsInput | string[]
     upvotes?: IntFieldUpdateOperationsInput | number
+    views?: IntFieldUpdateOperationsInput | number
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     twitter?: NullableStringFieldUpdateOperationsInput | string | null
     github?: NullableStringFieldUpdateOperationsInput | string | null

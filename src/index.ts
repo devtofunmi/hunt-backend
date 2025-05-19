@@ -5,6 +5,7 @@ import authRoutes from './route/auth.js'
 import profileRoutes from './route/profile.js'
 import { config } from 'dotenv'
 import productRoutes from './route/product.js'
+import analyticsRoute from './route/analytics.js'
 
 config();
 
@@ -21,7 +22,8 @@ app.use('*', cors({
 }));
 
 
-app.get('/', (c) => c.text('Hello Jay!'))
+app.get('/', (c) => c.text('Hello Jay!'));
+app.route('/analytics', analyticsRoute);
 app.route('/products', productRoutes);
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
