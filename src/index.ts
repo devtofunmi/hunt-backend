@@ -6,6 +6,7 @@ import profileRoutes from './route/profile.js'
 import { config } from 'dotenv'
 import productRoutes from './route/product.js'
 import analyticsRoute from './route/analytics.js'
+import commentRoute from './route/comment.js'
 
 config();
 
@@ -27,6 +28,7 @@ app.route('/analytics', analyticsRoute);
 app.route('/products', productRoutes);
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
+app.route('/api/comments', commentRoute);
 
 serve(
   {
