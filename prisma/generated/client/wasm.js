@@ -183,6 +183,14 @@ exports.Prisma.SocialLinkScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  productId: 'productId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -205,7 +213,8 @@ exports.Prisma.ModelName = {
   Product: 'Product',
   SavedProduct: 'SavedProduct',
   Upvote: 'Upvote',
-  SocialLink: 'SocialLink'
+  SocialLink: 'SocialLink',
+  Comment: 'Comment'
 };
 
 /**
