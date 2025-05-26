@@ -16,7 +16,7 @@ const app = new Hono()
 
 
 app.use('*', cors({
-  origin: ['http://localhost:3000', 'https://launchhunt.up.railway.app', 'https://launchhunt.netlify.app'],
+  origin: ['http://localhost:3000', 'https://launchhunt.up.railway.app','https://launchhunt.onrender.com', 'https://launchhunt.netlify.app'],
   allowHeaders: ['Content-Type', 'Authorization'],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
