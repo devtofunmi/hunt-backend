@@ -112,10 +112,26 @@ export const getTopProducts = async (c: Context) => {
 
 export const getSavedProducts = async (c: Context) => {
   const userId = getUserId(c);
+
   const saved = await prisma.savedProduct.findMany({
     where: { userId },
     include: {
-      product: true,
+      product: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              image: true,
+              bio: true,
+              twitter: true,
+              github: true,
+              linkedin: true,
+              bluesky: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -180,7 +196,22 @@ export const getUpvotedProducts = async (c: Context) => {
   const upvoted = await prisma.upvote.findMany({
     where: { userId },
     include: {
-      product: true,
+      product: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              image: true,
+              bio: true,
+              twitter: true,
+              github: true,
+              linkedin: true,
+              bluesky: true,
+            },
+          },
+        },
+      },
     },
   });
 
