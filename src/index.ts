@@ -28,7 +28,7 @@ app.route('/analytics', analyticsRoute);
 app.route('/products', productRoutes);
 app.route('/auth', authRoutes)
 app.route('/profile', profileRoutes)
-app.route('/api/comments', commentRoute);
+app.route('/comments', commentRoute);
 
 serve(
   {
