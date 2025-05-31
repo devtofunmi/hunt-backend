@@ -7,8 +7,17 @@ export const getCommentsForProduct = async (c: Context) => {
 
   try {
     const comments = await prisma.comment.findMany({
-      where: { productId },
-      orderBy: { createdAt: 'desc' },
+  where: { productId, parentId: null }, // top-level only
+  orderBy: { createdAt: 'desc' },
+  include: {
+    user: {
+      select: {
+        id: true,
+        username: true,
+        image: true,
+      },
+    },
+    replies: {
       include: {
         user: {
           select: {
@@ -18,7 +27,13 @@ export const getCommentsForProduct = async (c: Context) => {
           },
         },
       },
-    });
+      orderBy: {
+        createdAt: 'asc',
+      },
+    },
+  },
+});
+
 
     return c.json(comments);
   } catch (err) {
@@ -29,7 +44,7 @@ export const getCommentsForProduct = async (c: Context) => {
 
 export const createComment = async (c: Context) => {
   const body = await c.req.json();
-  const { content, productId } = body;
+  const { content, productId, parentId } = body;
   const userId = c.get('userId');
 
   if (!userId) {
@@ -42,6 +57,7 @@ export const createComment = async (c: Context) => {
         content,
         productId,
         userId,
+        parentId, // allow null for top-level comments
       },
       include: {
         user: {
@@ -51,6 +67,7 @@ export const createComment = async (c: Context) => {
             image: true,
           },
         },
+        replies: true,
       },
     });
 
@@ -60,3 +77,38 @@ export const createComment = async (c: Context) => {
     return c.json({ message: 'Failed to post comment' }, 500);
   }
 };
+
+export const updateComment = async (c: Context) => {
+  const commentId = c.req.param('id');
+  const { content } = await c.req.json();
+  const userId = c.get('userId');
+
+  const comment = await prisma.comment.findUnique({ where: { id: commentId } });
+
+  if (!comment || comment.userId !== userId) {
+    return c.json({ message: 'Unauthorized or not found' }, 403);
+  }
+
+  const updated = await prisma.comment.update({
+    where: { id: commentId },
+    data: { content },
+  });
+
+  return c.json(updated);
+};
+
+export const deleteComment = async (c: Context) => {
+  const commentId = c.req.param('id');
+  const userId = c.get('userId');
+
+  const comment = await prisma.comment.findUnique({ where: { id: commentId } });
+
+  if (!comment || comment.userId !== userId) {
+    return c.json({ message: 'Unauthorized or not found' }, 403);
+  }
+
+  await prisma.comment.delete({ where: { id: commentId } });
+
+  return c.json({ message: 'Comment deleted' });
+};
+
